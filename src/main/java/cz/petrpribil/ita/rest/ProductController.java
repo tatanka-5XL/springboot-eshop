@@ -5,8 +5,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class ProductController {
-    @GetMapping
+    @GetMapping("greeting")
     public String test() {
-        return "Zdarec";
+        return new ProductDto(){
+
+        };
     }
 }
