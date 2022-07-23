@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 @Service
 public class ProductService {
 
-    private Map<Long, ProductDto> productDtoMap;
+    public static Map<Long, ProductDto> productDtoMap;
 
     @PostConstruct
     public void init(){
@@ -50,11 +50,11 @@ public class ProductService {
 
     }
 
-    public ProductDto findProduct(Long id) {
+    public static ProductDto findProduct(Long id) {
         return productDtoMap.get(id);
     }
 
-    public Collection<ProductDto> findAllProducts() {
+    public static Collection<ProductDto> findAllProducts() {
         return productDtoMap.values();
     }
 }
