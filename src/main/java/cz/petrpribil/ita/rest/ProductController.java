@@ -2,16 +2,13 @@ package cz.petrpribil.ita.rest;
 
 import cz.petrpribil.ita.model.ProductDto;
 import cz.petrpribil.ita.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
 @RestController
 @RequestMapping("api/v1/product")
+@CrossOrigin("http://ita-frontend.s3-website.eu-central-1.amazonaws.com")
 public class ProductController {
     private ProductService productService;
 

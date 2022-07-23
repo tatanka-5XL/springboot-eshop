@@ -33,8 +33,16 @@ public class ProductService {
                 10L,
                 2L
         );
+        ProductDto productDto3 = new ProductDto(
+                "Firesteel",
+                "Odted uz nebudete potrebovat zapalky ani zapalovac!",
+                "https://img.cestovatelskyobchod.cz/images/JOKER/podpalovace/joker-pd04-firesteel-olive-wood.jpg",
+                400L,
+                20L,
+                3L
+        );
 
-        productDtoMap = Stream.of(productDto1, productDto2)
+        productDtoMap = Stream.of(productDto1, productDto2, productDto3)
                 .collect(Collectors.toMap(
                         ProductDto::getId,
                         Function.identity()
