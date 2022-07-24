@@ -13,9 +13,6 @@ import java.util.stream.Stream;
 @Service
 public class ProductService {
 
-    public ProductService () {
-        System.out.println("In constructor");
-    }
     public static Map<Long, ProductDto> productDtoMap;
 
     @PostConstruct
