@@ -2,10 +2,7 @@ package cz.petrpribil.ita;
 
 import cz.petrpribil.ita.model.ProductDto;
 import cz.petrpribil.ita.service.ProductService;
-import org.junit.Before;
 import org.junit.jupiter.api.*;
-
-import java.util.Collection;
 import java.util.Map;
 
 
@@ -23,7 +20,7 @@ public class JUnitTest {
     @DisplayName("Test if all the products are shown")
     void getAll() {
         callInit();
-        Map<Long, ProductDto> productDtoMapTest = productService.productDtoMap;
+        Map<Long, ProductDto> productDtoMapTest = ProductService.productDtoMap;
         Assertions.assertEquals(3, productDtoMapTest.size());
     }
 
@@ -31,7 +28,6 @@ public class JUnitTest {
     @DisplayName("Test if product is shown, based on its id")
     void findById() {
         callInit();
-        Map<Long, ProductDto> productDtoMapTest = productService.productDtoMap;
-        Assertions.assertEquals("Firesteel", productService.findProduct(3L));
+        Assertions.assertEquals("Firesteel", productService.findProduct(3L).getName());
     }
 }
