@@ -13,6 +13,10 @@ import java.util.stream.Stream;
 @Service
 public class ProductService {
 
+    public ProductService () {
+        System.out.println("In constructor");
+        this.productDtoMap = productDtoMap;
+    }
     public static Map<Long, ProductDto> productDtoMap;
 
     @PostConstruct
@@ -54,7 +58,6 @@ public class ProductService {
         return productDtoMap.get(id);
     }
 
-    public static Collection<ProductDto> findAllProducts() {
-        return productDtoMap.values();
+    public static Collection<ProductDto> findAllProducts() {return productDtoMap.values();
     }
 }
