@@ -5,8 +5,7 @@ import org.junit.jupiter.api.*;
 
 import static org.assertj.core.api.Assertions.*;
 
-
-class ProductServiceTest {
+public class ProductServiceTest {
     private final ProductService productService = new ProductService();
 
     @BeforeEach
