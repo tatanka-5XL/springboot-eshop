@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 @Service
 public class ProductService {
 
-    public Map<Long, ProductDto> productDtoMap;
+    private Map<Long, ProductDto> productDtoMap;
 
     @PostConstruct
     public void init(){
