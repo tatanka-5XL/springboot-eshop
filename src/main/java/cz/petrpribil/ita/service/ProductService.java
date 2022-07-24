@@ -54,6 +54,7 @@ public class ProductService {
         return productDtoMap.get(id);
     }
 
-    public Collection<ProductDto> findAllProducts() {return productDtoMap.values();
+    public Collection<ProductDto> findAllProducts() {
+        return productDtoMap.values();
     }
 }
