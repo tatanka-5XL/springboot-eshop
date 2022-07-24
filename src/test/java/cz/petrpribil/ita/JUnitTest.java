@@ -2,28 +2,36 @@ package cz.petrpribil.ita;
 
 import cz.petrpribil.ita.model.ProductDto;
 import cz.petrpribil.ita.service.ProductService;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.jupiter.api.*;
+
 import java.util.Collection;
+import java.util.Map;
 
 
 public class JUnitTest {
-    private final Collection<ProductDto> testingCollection = ProductService.findAllProducts();
-    private final ProductDto testingProduct = ProductService.findProduct(3L);
-    @Test
-    @DisplayName("Test if all the products are shown")
-    void getAll() {
-//        ProductService productService = new ProductService();
-//        System.out.println(productService);
-//        Assertions.assertEquals(3L, productService.findAllProducts());
-        Assertions.assertEquals(3, testingCollection.size());
+    private final ProductService productService = new ProductService();
+
+//    private final Map<Long, ProductDto> productDtoMapTest = productService.productDtoMap;
+
+    @BeforeEach
+    void callInit() {
+        productService.init();
     }
 
     @Test
-    @DisplayName("Test if one product is found by its id")
+    @DisplayName("Test if all the products are shown")
+    void getAll() {
+        callInit();
+        Map<Long, ProductDto> productDtoMapTest = productService.productDtoMap;
+        Assertions.assertEquals(3, productDtoMapTest.size());
+    }
+
+    @Test
+    @DisplayName("Test if product is shown, based on its id")
     void findById() {
-        Assertions.assertEquals("Firesteel", testingProduct.getName());
+        callInit();
+        Map<Long, ProductDto> productDtoMapTest = productService.productDtoMap;
+        Assertions.assertEquals("Firesteel", productService.findProduct(3L));
     }
 }

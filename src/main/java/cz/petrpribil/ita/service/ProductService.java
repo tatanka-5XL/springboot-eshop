@@ -15,7 +15,6 @@ public class ProductService {
 
     public ProductService () {
         System.out.println("In constructor");
-        this.productDtoMap = productDtoMap;
     }
     public static Map<Long, ProductDto> productDtoMap;
 
@@ -54,10 +53,10 @@ public class ProductService {
 
     }
 
-    public static ProductDto findProduct(Long id) {
+    public ProductDto findProduct(Long id) {
         return productDtoMap.get(id);
     }
 
-    public static Collection<ProductDto> findAllProducts() {return productDtoMap.values();
+    public Collection<ProductDto> findAllProducts() {return productDtoMap.values();
     }
 }
