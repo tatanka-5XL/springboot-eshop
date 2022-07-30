@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
-public class ProductService {
+public class ProductService implements ProductServiceInterface {
 
     private Map<Long, ProductDto> productDtoMap;
 
@@ -50,10 +50,12 @@ public class ProductService {
 
     }
 
+    @Override
     public ProductDto findProduct(Long id) {
         return productDtoMap.get(id);
     }
 
+    @Override
     public Collection<ProductDto> findAllProducts() {
         return productDtoMap.values();
     }
