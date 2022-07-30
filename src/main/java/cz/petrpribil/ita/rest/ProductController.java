@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("api/v1/product")
-@CrossOrigin("http://ita-frontend.s3-website.eu-central-1.amazonaws.com")
+@RequestMapping("api/v1/products")
+@CrossOrigin("http://localhost:8088")
 public class ProductController {
     private ProductServiceInterface productService;
 
