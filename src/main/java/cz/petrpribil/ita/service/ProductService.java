@@ -3,16 +3,13 @@ package cz.petrpribil.ita.service;
 import cz.petrpribil.ita.domain.Product;
 import cz.petrpribil.ita.model.ProductDto;
 import cz.petrpribil.ita.repository.ProductRepository;
+import cz.petrpribil.ita.rest.ProductController;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.EntityNotFoundException;
 import java.util.Collection;
-import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -32,6 +29,24 @@ public class ProductService implements ProductServiceInterface {
                 .collect(Collectors.toList());
     }
 
+    public ProductDto createProduct(ProductDto productDto) {
+        Product product = mapToDomain(productDto);
+        Product savedProduct = productRepository.save(product);
+        return mapToDto(savedProduct);
+    }
+
+    public ProductDto updateProduct(Long id, ProductDto productDto) {
+        if (!productRepository.existsById(id)) {
+            throw new EntityNotFoundException("Product " + id + " not found!");
+        }
+        Product product = mapToDomain(productDto);
+        Product savedProduct = productRepository.save(product);
+        return mapToDto(savedProduct);
+    }
+
+    public void deleteProduct(Long id) {
+        productRepository.deleteById(id);
+    }
 
     private ProductDto mapToDto(Product product) {
         return new ProductDto(
@@ -42,5 +57,15 @@ public class ProductService implements ProductServiceInterface {
                 product.getStock(),
                 product.getId()
         );
+    }
+
+    private Product mapToDomain(ProductDto product) {
+        return new Product()
+                .setName(product.getName())
+                .setDescription(product.getDescription())
+                .setImage(product.getImage())
+                .setPrice(product.getPrice())
+                .setStock(product.getStock())
+                .setId(product.getId());
     }
 }

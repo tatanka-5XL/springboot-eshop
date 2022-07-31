@@ -3,6 +3,7 @@ package cz.petrpribil.ita.rest;
 import cz.petrpribil.ita.model.ProductDto;
 import cz.petrpribil.ita.service.ProductService;
 import cz.petrpribil.ita.service.ProductServiceInterface;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -25,6 +26,22 @@ public class ProductController {
     @GetMapping
     public Collection<ProductDto> findAllProducts() {
         return productService.findAllProducts();
+    }
+
+    @PostMapping
+    public ProductDto createProduct(@RequestBody ProductDto productDto){
+         return productService.createProduct(productDto);
+    }
+
+    @PutMapping("{id}")
+    public ProductDto updateProduct(@PathVariable("id") Long id, @RequestBody ProductDto productDto){
+        return productService.updateProduct(id, productDto);
+    }
+
+    @DeleteMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteProduct(@PathVariable("id") Long id) {
+        productService.deleteProduct(id);
     }
 
 }
