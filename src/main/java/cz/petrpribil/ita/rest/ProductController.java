@@ -3,7 +3,6 @@ package cz.petrpribil.ita.rest;
 import cz.petrpribil.ita.model.CreateProductDto;
 import cz.petrpribil.ita.model.ProductDto;
 import cz.petrpribil.ita.service.ProductService;
-import cz.petrpribil.ita.service.ProductServiceInterface;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,9 +12,9 @@ import java.util.Collection;
 @RequestMapping("api/v1/products")
 @CrossOrigin("http://localhost:8088")
 public class ProductController {
-    private ProductServiceInterface productService;
+    private ProductService productService;
 
-    public ProductController(ProductServiceInterface productService) {
+    public ProductController(ProductService productService) {
         this.productService = productService;
     }
 
@@ -30,7 +29,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public CreateProductDto createProduct(@RequestBody CreateProductDto createProductDto){
+    public ProductDto createProduct(@RequestBody CreateProductDto createProductDto){
              return productService.createProduct(createProductDto);
     }
 

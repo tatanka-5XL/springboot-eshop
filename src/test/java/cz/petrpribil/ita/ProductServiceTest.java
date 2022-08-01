@@ -33,7 +33,7 @@ public class ProductServiceTest {
         return someList;
     }
 
-
+// v assertu musim volat servisu a ne repository
     @Test
     @DisplayName("Test if all the products are shown")
     void findAllProducts() {
