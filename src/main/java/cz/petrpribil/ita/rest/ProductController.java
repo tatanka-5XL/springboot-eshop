@@ -1,14 +1,16 @@
 package cz.petrpribil.ita.rest;
 
+import cz.petrpribil.ita.model.CreateProductDto;
 import cz.petrpribil.ita.model.ProductDto;
 import cz.petrpribil.ita.service.ProductService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
 @RestController
-@RequestMapping("api/v1/product")
-@CrossOrigin("http://ita-frontend.s3-website.eu-central-1.amazonaws.com")
+@RequestMapping("api/v1/products")
+@CrossOrigin("http://localhost:8088")
 public class ProductController {
     private ProductService productService;
 
@@ -24,6 +26,22 @@ public class ProductController {
     @GetMapping
     public Collection<ProductDto> findAllProducts() {
         return productService.findAllProducts();
+    }
+
+    @PostMapping
+    public ProductDto createProduct(@RequestBody CreateProductDto createProductDto){
+             return productService.createProduct(createProductDto);
+    }
+
+    @PutMapping("{id}")
+    public ProductDto updateProduct(@PathVariable("id") Long id, @RequestBody ProductDto productDto){
+        return productService.updateProduct(id, productDto);
+    }
+
+    @DeleteMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteProduct(@PathVariable("id") Long id) {
+        productService.deleteProduct(id);
     }
 
 }
