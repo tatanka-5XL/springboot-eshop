@@ -4,9 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -17,6 +15,7 @@ public class Product {
     @GeneratedValue
     private Long id;
     private String name;
+    @Column(length=512)
     private String description;
     private String image;
     private Long price;
