@@ -1,5 +1,6 @@
 package cz.petrpribil.ita.rest;
 
+import cz.petrpribil.ita.model.CreateProductDto;
 import cz.petrpribil.ita.model.ProductDto;
 import cz.petrpribil.ita.service.ProductService;
 import cz.petrpribil.ita.service.ProductServiceInterface;
@@ -29,8 +30,8 @@ public class ProductController {
     }
 
     @PostMapping
-    public ProductDto createProduct(@RequestBody ProductDto productDto){
-         return productService.createProduct(productDto);
+    public CreateProductDto createProduct(@RequestBody CreateProductDto createProductDto){
+             return productService.createProduct(createProductDto);
     }
 
     @PutMapping("{id}")

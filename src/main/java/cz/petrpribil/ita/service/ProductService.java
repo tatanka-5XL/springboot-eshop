@@ -1,6 +1,7 @@
 package cz.petrpribil.ita.service;
 
 import cz.petrpribil.ita.domain.Product;
+import cz.petrpribil.ita.model.CreateProductDto;
 import cz.petrpribil.ita.model.ProductDto;
 import cz.petrpribil.ita.repository.ProductRepository;
 import cz.petrpribil.ita.rest.ProductController;

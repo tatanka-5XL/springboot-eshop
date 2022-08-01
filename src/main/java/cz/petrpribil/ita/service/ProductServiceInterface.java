@@ -1,5 +1,6 @@
 package cz.petrpribil.ita.service;
 
+import cz.petrpribil.ita.model.CreateProductDto;
 import cz.petrpribil.ita.model.ProductDto;
 
 import java.util.Collection;
