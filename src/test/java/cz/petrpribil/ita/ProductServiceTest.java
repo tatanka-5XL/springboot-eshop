@@ -34,21 +34,21 @@ public class ProductServiceTest {
     }
 
 // v assertu musim volat servisu a ne repository
-    @Test
-    @DisplayName("Test if all the products are shown")
-    void findAllProducts() {
-        when(mockedProductRepository.findAll()).thenReturn(dataProvider());
-
-        assertThat(mockedProductRepository.findAll())
-                .as("Check the product size")
-                .hasSize(2);
-    }
-
-    @Test
-    @DisplayName("Test if product is shown, based on its id")
-    void findProduct() {
-        assertThat(mockedProductRepository.findById(1L))
-                .as("Check if the first product is Sekera")
-                .isEqualTo("Sekera");
-    }
+//    @Test
+//    @DisplayName("Test if all the products are shown")
+//    void findAllProducts() {
+//        when(mockedProductRepository.findAll()).thenReturn(dataProvider());
+//
+//        assertThat(mockedProductRepository.findAll())
+//                .as("Check the product size")
+//                .hasSize(2);
+//    }
+//
+//    @Test
+//    @DisplayName("Test if product is shown, based on its id")
+//    void findProduct() {
+//        assertThat(mockedProductRepository.findById(1L))
+//                .as("Check if the first product is Sekera")
+//                .isEqualTo("Sekera");
+//    }
 }
