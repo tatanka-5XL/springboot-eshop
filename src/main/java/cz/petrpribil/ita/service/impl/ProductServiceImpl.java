@@ -40,7 +40,7 @@ public class ProductServiceImpl implements ProductService {
         log.debug("Creating product ... ");
         Product product = mapToDomain(productDto);
         Product savedProduct = productRepository.save(product);
-        log.debug("Product created: " + mapToDto(savedProduct).toString());
+        log.debug("Product created: " + mapToDto(savedProduct));
         return mapToDto(savedProduct);
     }
 
@@ -51,12 +51,12 @@ public class ProductServiceImpl implements ProductService {
         }
         Product product = mapToDomain(productDto);
         Product savedProduct = productRepository.save(product);
-        log.debug("Product was updated as " + mapToDto(savedProduct).toString());
+        log.debug("Product was updated as " + mapToDto(savedProduct));
         return mapToDto(savedProduct);
     }
 
     public void deleteProduct(Long id) {
-        log.debug("XXXXXXXXXXXXXXXXXXX Product " + id + " was deleted XXXXXXXXXXXXXXXXXXX");
+        log.debug("Product " + id + " was deleted");
         productRepository.deleteById(id);
     }
 

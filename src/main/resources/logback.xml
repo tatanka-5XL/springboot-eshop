@@ -1,5 +1,5 @@
 <configuration>
-    <property name="LOGDIR" value="logs/"></property>
+    <property name="LOGDIR" value="logs/"/>
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%yellow(%-4relative) %blue([%thread]) %-5level %green(%logger{35}) - %cyan(%msg) %n</pattern>
