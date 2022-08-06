@@ -1,6 +1,7 @@
 package cz.petrpribil.ita.service.impl;
 
 import cz.petrpribil.ita.domain.Product;
+import cz.petrpribil.ita.exception.ProductNotFoundException;
 import cz.petrpribil.ita.model.CreateProductDto;
 import cz.petrpribil.ita.model.ProductDto;
 import cz.petrpribil.ita.repository.ProductRepository;
@@ -26,7 +27,7 @@ public class ProductServiceImpl implements ProductService {
         log.debug("Fetching product " + id + "...");
         return productRepository.findById(id)
         .map(this::mapToDto)
-                .orElseThrow(()-> new EntityNotFoundException("Product " + id + " not found!"));
+                .orElseThrow(()-> new ProductNotFoundException(id));
     }
 
     public Collection<ProductDto> findAllProducts() {
@@ -47,7 +48,7 @@ public class ProductServiceImpl implements ProductService {
     public ProductDto updateProduct(Long id, ProductDto productDto) {
         log.debug("Product " + id + " is being updated");
         if (!productRepository.existsById(id)) {
-            throw new EntityNotFoundException("Product " + id + " not found!");
+            throw new ProductNotFoundException(id);
         }
         Product product = mapToDomain(productDto);
         Product savedProduct = productRepository.save(product);
