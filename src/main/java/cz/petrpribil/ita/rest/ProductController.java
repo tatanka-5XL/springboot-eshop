@@ -6,6 +6,7 @@ import cz.petrpribil.ita.service.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Collection;
 
 @RestController
@@ -29,7 +30,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ProductDto createProduct(@RequestBody CreateProductDto createProductDto){
+    public ProductDto createProduct(@Valid @RequestBody CreateProductDto createProductDto){
              return productService.createProduct(createProductDto);
     }
 

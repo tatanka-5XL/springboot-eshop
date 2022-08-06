@@ -16,17 +16,10 @@ public class Product {
     @Id
     @GeneratedValue
     private Long id;
-    @NotNull
-    @Column(length=256)
     private String name;
-    @NotNull
     @Column(length=512)
     private String description;
-    @NotNull
     private String image;
-    @NotNull
-    @Size
     private Long price;
-    @Size
     private Long stock;
 }
