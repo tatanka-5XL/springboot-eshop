@@ -14,4 +14,15 @@ public class ProductDto {
     private Long price;
     private Long stock;
     private Long id;
-    }
+
+    @Override
+    public String toString(){
+        return  "Id {" +
+                id + "} " +
+                name + " - " +
+                description + " (" +
+                image + "): price [" +
+                price + "] stock [" +
+                stock + "]";
+     }
+}

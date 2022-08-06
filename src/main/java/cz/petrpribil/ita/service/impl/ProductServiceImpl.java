@@ -23,40 +23,40 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
 
     public ProductDto findProduct(Long id) {
-        log.debug("XXXXXXXXXXXXXXXXXXX Fetching product " + id + " XXXXXXXXXXXXXXXXXXX");
+        log.debug("Fetching product " + id + "...");
         return productRepository.findById(id)
         .map(this::mapToDto)
                 .orElseThrow(()-> new EntityNotFoundException("Product " + id + " not found!"));
     }
 
     public Collection<ProductDto> findAllProducts() {
-        log.debug("XXXXXXXXXXXXXXXXXXX Showing all the products XXXXXXXXXXXXXXXXXXX");
+        log.debug("Fetching all the products");
         return productRepository.findAll().stream()
                 .map(this::mapToDto)
                 .collect(Collectors.toList());
     }
 
     public ProductDto createProduct(CreateProductDto productDto) {
-        log.debug("XXXXXXXXXXXXXXXXXXX Creating product ... XXXXXXXXXXXXXXXXXXX");
+        log.debug("Creating product ... ");
         Product product = mapToDomain(productDto);
         Product savedProduct = productRepository.save(product);
-        log.debug("XXXXXXXXXXXXXXXXXXX Product " + savedProduct.getName() + " created XXXXXXXXXXXXXXXXXXX");
+        log.debug("Product created: " + mapToDto(savedProduct).toString());
         return mapToDto(savedProduct);
     }
 
     public ProductDto updateProduct(Long id, ProductDto productDto) {
-        log.debug("XXXXXXXXXXXXXXXXXXX Product " + id + " is being updated XXXXXXXXXXXXXXXXXXX");
+        log.debug("Product " + id + " is being updated");
         if (!productRepository.existsById(id)) {
             throw new EntityNotFoundException("Product " + id + " not found!");
         }
         Product product = mapToDomain(productDto);
         Product savedProduct = productRepository.save(product);
-        log.debug("XXXXXXXXXXXXXXXXXXX Product " + savedProduct.getName() + " was updated XXXXXXXXXXXXXXXXXXX");
+        log.debug("Product was updated as " + mapToDto(savedProduct).toString());
         return mapToDto(savedProduct);
     }
 
     public void deleteProduct(Long id) {
-        log.debug("XXXXXXXXXXXXXXXXXXX Product " + id + " will be deleted XXXXXXXXXXXXXXXXXXX");
+        log.debug("XXXXXXXXXXXXXXXXXXX Product " + id + " was deleted XXXXXXXXXXXXXXXXXXX");
         productRepository.deleteById(id);
     }
 
