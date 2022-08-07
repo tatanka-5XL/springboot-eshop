@@ -18,6 +18,7 @@
 
     <logger name="cz.petrpribil.ita.service.impl.ProductServiceImpl" level="DEBUG" additivity="false">
         <appender-ref ref="STDOUT"/>
+        <appender-ref ref="File"/>
     </logger>
 
     <root level="INFO">

@@ -1,0 +1,2 @@
+[33m52041[0;39m [34m[http-nio-8080-exec-5][0;39m DEBUG [32mc.p.i.s.impl.ProductServiceImpl[0;39m - [36mFetching all the products[0;39m 
+[33m100414[0;39m [34m[http-nio-8080-exec-6][0;39m DEBUG [32mc.p.i.s.impl.ProductServiceImpl[0;39m - [36mFetching product 1...[0;39m 

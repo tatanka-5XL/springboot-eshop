@@ -3,7 +3,6 @@ package cz.petrpribil.ita.rest;
 import cz.petrpribil.ita.exception.ItaException;
 import cz.petrpribil.ita.model.ExceptionDto;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.Server;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -68,7 +67,9 @@ public class ItaCommonControllerAdvice extends ResponseEntityExceptionHandler {
             HttpStatus status,
             WebRequest request) {
 
-//        log.error("An exception occurred while processing " + request.getRequest().getMethod() + " at " + request.getRequest().getRequestURL(), exception);
+        ServletWebRequest servletWebRequest = (ServletWebRequest) request;
+
+        log.error("An exception occurred while processing " + servletWebRequest.getRequest().getMethod() + " at " + servletWebRequest.getRequest().getRequestURL(), exception);
 
         final String errors = exception.getBindingResult().getAllErrors().stream()
                 .map(error -> ((FieldError) error).getField() + " " + error.getDefaultMessage())

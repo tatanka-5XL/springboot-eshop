@@ -1,12 +1,10 @@
 package cz.petrpribil.ita.domain;
 
-import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 
 @Entity
 @Getter
