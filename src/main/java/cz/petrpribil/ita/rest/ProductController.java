@@ -6,6 +6,7 @@ import cz.petrpribil.ita.service.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Collection;
 
 @RestController
@@ -29,12 +30,12 @@ public class ProductController {
     }
 
     @PostMapping
-    public ProductDto createProduct(@RequestBody CreateProductDto createProductDto){
+    public ProductDto createProduct(@Valid @RequestBody CreateProductDto createProductDto){
              return productService.createProduct(createProductDto);
     }
 
     @PutMapping("{id}")
-    public ProductDto updateProduct(@PathVariable("id") Long id, @RequestBody ProductDto productDto){
+    public ProductDto updateProduct(@PathVariable("id") Long id, @Valid @RequestBody ProductDto productDto){
         return productService.updateProduct(id, productDto);
     }
 

@@ -1,0 +1,28 @@
+<configuration>
+    <property name="LOGDIR" value="logs/"/>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%yellow(%-4relative) %blue([%thread]) %-5level %green(%logger{35}) - %cyan(%msg) %n</pattern>
+        </encoder>
+    </appender>
+    <appender name="File" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGDIR}Vybaveni.log</file>
+        <encoder>
+            <pattern>%yellow(%-4relative) %blue([%thread]) %-5level %green(%logger{35}) - %cyan(%msg) %n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOGDIR}Vybaveni-%d{yyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>5 MB</maxFileSize>
+        </rollingPolicy>
+    </appender>
+
+    <logger name="cz.petrpribil.ita.service.impl.ProductServiceImpl" level="DEBUG" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="File"/>
+    </logger>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>
+
