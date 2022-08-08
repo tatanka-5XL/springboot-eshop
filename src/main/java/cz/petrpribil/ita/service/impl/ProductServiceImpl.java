@@ -29,10 +29,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     public Collection<ProductDto> findAllProducts() {
-        log.debug("Fetching all the products");
-        return productRepository.findAll().stream()
+        log.info("Fetching all the products");
+        Collection <ProductDto> products = productRepository.findAll().stream()
                 .map(this::mapToDto)
                 .collect(Collectors.toList());
+        log.debug("Displayed " + (products.size()) + " products");
+        return products;
     }
 
     public ProductDto createProduct(CreateProductDto productDto) {
