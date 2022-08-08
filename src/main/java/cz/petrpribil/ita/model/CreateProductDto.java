@@ -14,9 +14,12 @@ import javax.validation.constraints.Size;
 @Setter
 @AllArgsConstructor
 public class CreateProductDto {
-    @NotBlank @Size(max=256) @StartsWithUppercase(message = "Must start with an uppercase!")
+    @NotBlank
+    @Size(max=256)
+    @StartsWithUppercase(message = "Must start with an uppercase!")
     private String name;
-    @NotBlank @Size(max=512)
+    @NotBlank
+    @Size(max=512)
     private String description;
     @NotBlank
     private String image;
