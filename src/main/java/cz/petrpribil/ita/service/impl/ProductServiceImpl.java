@@ -20,7 +20,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
 
     public ProductDto findProduct(Long id) {
-        log.debug("Fetching product " + id + "...");
+        log.info("Fetching product " + id + "...");
         return productRepository.findById(id)
         .map(this::mapToDto)
                 .orElseThrow(()-> new ProductNotFoundException(id));
