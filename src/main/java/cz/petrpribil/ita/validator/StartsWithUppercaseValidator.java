@@ -10,8 +10,7 @@ public class StartsWithUppercaseValidator implements ConstraintValidator<StartsW
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext Context) {
-        String s = Objects.toString(value);
-        char c = s.charAt(0);
+        char c = value.charAt(0);
         return isUpperCase(c);
     }
 }
