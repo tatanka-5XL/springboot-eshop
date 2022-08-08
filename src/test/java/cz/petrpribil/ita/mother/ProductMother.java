@@ -1,7 +1,6 @@
 package cz.petrpribil.ita.mother;
 
 import cz.petrpribil.ita.domain.Product;
-import cz.petrpribil.ita.model.ProductDto;
 import java.util.Arrays;
 import java.util.List;
 
