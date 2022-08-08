@@ -2,6 +2,7 @@ package cz.petrpribil.ita;
 
 import cz.petrpribil.ita.domain.Product;
 import cz.petrpribil.ita.model.ProductDto;
+import cz.petrpribil.ita.mother.ProductMother;
 import cz.petrpribil.ita.repository.ProductRepository;
 import cz.petrpribil.ita.service.ProductService;
 import cz.petrpribil.ita.service.impl.ProductServiceImpl;
@@ -42,11 +43,11 @@ public class ProductServiceImplTest {
     }
 
     @Test
-    public void testFindProduct(Long id){
+    public void testFindProduct(){
         final Product testProduct = getTestProduct();
-        when(mockProductRepository.findById(id)).thenReturn(Optional.of(testProduct));
-        final ProductDto finalProduct = productServiceImpl.findProduct(2L);
+        when(mockProductRepository.findById(2L)).thenReturn(Optional.of(testProduct));
+        ProductDto finalProduct = productServiceImpl.findProduct(2L);
 
-        assertThat(finalProduct.getName().compareTo("Batoh"));
+        assertThat(finalProduct.getName()).isEqualTo("Batoh");
     }
 }
