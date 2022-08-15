@@ -10,6 +10,8 @@ import cz.petrpribil.ita.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
@@ -21,6 +23,8 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
 
+    @Override
+    @Transactional
     public ProductDto findProduct(Long id) {
         log.info("Fetching product " + id + "...");
         ProductDto product = productRepository.findById(id)
@@ -41,7 +45,7 @@ public class ProductServiceImpl implements ProductService {
 
     public ProductDto createProduct(CreateProductDto productDto) {
         log.debug("Creating product ... ");
-        Product product = mapToDomain(productDto);
+        Product product = productMapper.toDomain(productDto);
         Product savedProduct = productRepository.save(product);
         log.debug("Product created: " + mapToDto(savedProduct));
         return mapToDto(savedProduct);
