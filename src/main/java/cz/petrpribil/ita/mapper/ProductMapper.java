@@ -6,6 +6,7 @@ import cz.petrpribil.ita.model.ProductDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 
+// v pluginu, nastaveni compileru mam naschval defaultcomponentModel jako spring
 @Mapper
 public interface ProductMapper {
     Product toDomain(CreateProductDto productDto);

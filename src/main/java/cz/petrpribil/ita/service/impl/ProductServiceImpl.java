@@ -2,6 +2,7 @@ package cz.petrpribil.ita.service.impl;
 
 import cz.petrpribil.ita.domain.Product;
 import cz.petrpribil.ita.exception.ProductNotFoundException;
+import cz.petrpribil.ita.mapper.ProductMapper;
 import cz.petrpribil.ita.model.CreateProductDto;
 import cz.petrpribil.ita.model.ProductDto;
 import cz.petrpribil.ita.repository.ProductRepository;
@@ -10,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import java.util.Collection;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,11 +19,12 @@ import java.util.stream.Collectors;
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
+    private final ProductMapper productMapper;
 
     public ProductDto findProduct(Long id) {
         log.info("Fetching product " + id + "...");
         ProductDto product = productRepository.findById(id)
-                .map(this::mapToDto)
+                .map(productMapper::toDto)
                 .orElseThrow(()-> new ProductNotFoundException(id));
         log.debug("Displayed product " + product);
         return product;
@@ -32,7 +33,7 @@ public class ProductServiceImpl implements ProductService {
     public Collection<ProductDto> findAllProducts() {
         log.info("Fetching all the products");
         Collection <ProductDto> products = productRepository.findAll().stream()
-                .map(this::mapToDto)
+                .map(productMapper::toDto)
                 .collect(Collectors.toList());
         log.debug("Displayed " + (products.size()) + " products");
         return products;
