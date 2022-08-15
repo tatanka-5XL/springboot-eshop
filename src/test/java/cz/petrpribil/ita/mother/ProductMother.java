@@ -1,5 +1,4 @@
 package cz.petrpribil.ita.mother;
-
 import cz.petrpribil.ita.domain.Product;
 import java.util.Arrays;
 import java.util.List;
@@ -7,7 +6,7 @@ import java.util.List;
 
 public class ProductMother {
 
-    private static Product product1 = new Product()
+    private static final Product product1 = new Product()
             .setName("Lahev")
             .setDescription("Popis_lahve")
             .setImage("url_lahve")
@@ -15,7 +14,7 @@ public class ProductMother {
             .setStock(5L)
             .setId(1L);
 
-    private static Product product2 = new Product()
+    private static final Product product2 = new Product()
             .setName("Batoh")
             .setDescription("Popis_batohu")
             .setImage("url_batohu")
