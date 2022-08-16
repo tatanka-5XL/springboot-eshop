@@ -8,10 +8,8 @@ import cz.petrpribil.ita.repository.ProductRepository;
 import cz.petrpribil.ita.service.impl.ProductServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mapstruct.factory.Mappers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Collection;
 import java.util.Optional;
@@ -48,14 +46,10 @@ public class ProductServiceImplTest {
         ProductDto expectedResult = getTestProductDto();
 
 
-        when(mockProductMapper.toDto(productCaptor.capture()))
+        when(mockProductMapper.toDto(testProduct))
                 .thenReturn(expectedResult);
 
         ProductDto result = productServiceImpl.findProduct(2L);
-
-        Product capturedProduct = ProductCaptor.getValue();
-        assertThat(capturedProduct).isEqualTo(product);
-
 
         assertThat(result).isEqualTo(expectedResult);
 

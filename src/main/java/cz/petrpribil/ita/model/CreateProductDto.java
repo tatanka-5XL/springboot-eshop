@@ -3,16 +3,19 @@ package cz.petrpribil.ita.model;
 import cz.petrpribil.ita.validator.StartsWithUppercase;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
+@Accessors(chain = true)
 public class CreateProductDto {
     @NotBlank
     @Size(max=256)
