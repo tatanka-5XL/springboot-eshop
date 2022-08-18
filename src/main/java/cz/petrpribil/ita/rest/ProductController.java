@@ -13,7 +13,7 @@ import java.util.Collection;
 @RequestMapping("api/v1/products")
 @CrossOrigin("http://localhost:8088")
 public class ProductController {
-    private ProductService productService;
+    private final ProductService productService;
 
     public ProductController(ProductService productService) {
         this.productService = productService;
@@ -35,7 +35,7 @@ public class ProductController {
     }
 
     @PutMapping("{id}")
-    public ProductDto updateProduct(@PathVariable("id") Long id, @Valid @RequestBody ProductDto productDto){
+    public ProductDto updateProduct(@PathVariable("id") Long id, @Valid @RequestBody CreateProductDto productDto){
         return productService.updateProduct(id, productDto);
     }
 

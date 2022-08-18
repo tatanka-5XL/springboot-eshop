@@ -55,15 +55,15 @@ public class ProductServiceImpl implements ProductService {
     }
     @Override
     @Transactional
-    public ProductDto updateProduct(Long id, ProductDto productDto) {
+    public ProductDto updateProduct(Long id, CreateProductDto productDto) {
         log.debug("Product " + id + " is being updated");
-        if (!productRepository.existsById(id)) {
-            throw new ProductNotFoundException(id);
-        }
-        Product product = mapToDomain(productDto);
-        Product savedProduct = productRepository.save(product);
-        log.debug("Product was updated as " + mapToDto(savedProduct));
-        return mapToDto(savedProduct);
+
+        Product product = productRepository.findById(id)
+                        .orElseThrow(() -> new ProductNotFoundException(id));
+        productMapper.mergeProduct(product, productDto);
+        ProductDto savedProduct = productMapper.toDto(product);
+        log.debug("Product was updated as " + savedProduct);
+        return savedProduct;
     }
     @Override
     @Transactional
@@ -71,28 +71,4 @@ public class ProductServiceImpl implements ProductService {
         log.debug("Product " + id + " was deleted");
         productRepository.deleteById(id);
     }
-
-    private ProductDto mapToDto(Product product) {
-        return new ProductDto(
-                product.getName(),
-                product.getDescription(),
-                product.getImage(),
-                product.getPrice(),
-                product.getStock(),
-                product.getId()
-        );
-    }
-
-    private Product mapToDomain(ProductDto product) {
-        return new Product()
-                .setName(product.getName())
-                .setDescription(product.getDescription())
-                .setImage(product.getImage())
-                .setPrice(product.getPrice())
-                .setStock(product.getStock())
-                .setId(product.getId());
-    }
-
-
-
 }
