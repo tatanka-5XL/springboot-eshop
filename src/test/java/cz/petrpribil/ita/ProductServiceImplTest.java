@@ -131,7 +131,11 @@ public class ProductServiceImplTest implements WithAssertions {
 
     @Test
     public void testDeleteProduct(){
+        long id = 1L;
 
+        productServiceImpl.deleteProduct(id);
+
+        verify(mockProductRepository).deleteById(id);
     }
 
 }
