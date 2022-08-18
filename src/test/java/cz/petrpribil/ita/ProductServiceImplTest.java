@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static cz.petrpribil.ita.mother.ProductMother.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -84,7 +86,6 @@ public class ProductServiceImplTest implements WithAssertions {
 
     @Test
     public void testCreateProduct(){
-
         Product testProduct = getTestProduct();
         ProductDto testProductDto = getTestProductDto();
         CreateProductDto testCreateProductDto = getTestCreateProductDto();
@@ -105,7 +106,6 @@ public class ProductServiceImplTest implements WithAssertions {
 
     @Test
     public void testUpdateProduct(){
-
         Product testProduct = getTestProduct();
         ProductDto testProductDto = getTestProductDto();
         CreateProductDto testCreateProductDto = getTestCreateProductDto();
@@ -122,7 +122,11 @@ public class ProductServiceImplTest implements WithAssertions {
         verify(mockProductMapper).mergeProduct(testProduct, testCreateProductDto);
         verify(mockProductMapper).toDto(testProduct);
 
+        long wrong_id = 5L;
 
+        when(mockProductRepository.findById(wrong_id)).thenReturn(Optional.empty());
+
+        assertThrows(ProductNotFoundException.class, () -> productServiceImpl.updateProduct(wrong_id, testCreateProductDto));
     }
 
     @Test
