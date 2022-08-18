@@ -6,21 +6,21 @@ import cz.petrpribil.ita.mapper.ProductMapper;
 import cz.petrpribil.ita.model.ProductDto;
 import cz.petrpribil.ita.repository.ProductRepository;
 import cz.petrpribil.ita.service.impl.ProductServiceImpl;
+import org.assertj.core.api.WithAssertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import static cz.petrpribil.ita.mother.ProductMother.*;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class ProductServiceImplTest {
+public class ProductServiceImplTest implements WithAssertions {
 
     @InjectMocks
     private ProductServiceImpl productServiceImpl;
@@ -31,13 +31,6 @@ public class ProductServiceImplTest {
     @Mock
     private ProductMapper mockProductMapper;
 
-    @Test
-    public void testFindAllProducts(){
-        when(mockProductRepository.findAll()).thenReturn(getTestProducts());
-        Collection<ProductDto> allProducts = productServiceImpl.findAllProducts();
-
-        assertThat(allProducts.size()).isEqualTo(2L);
-    }
 
     @Test
     public void testFindProduct(){
@@ -64,6 +57,43 @@ public class ProductServiceImplTest {
                 .isExactlyInstanceOf(ProductNotFoundException.class);
 
         verifyNoInteractions(mockProductMapper);
+    }
+
+    @Test
+    public void testFindAllProducts(){
+        Product testProduct1 = getTestProduct();
+        Product testProduct2 = getTestProduct();
+        ProductDto testProductDto1 = getTestProductDto();
+        ProductDto testProductDto2 = getTestProductDto();
+
+        when(mockProductRepository.findAll()).thenReturn(List.of(testProduct1, testProduct2));
+
+        when(mockProductMapper.toDto(testProduct1)).thenReturn(testProductDto1);
+        when(mockProductMapper.toDto(testProduct2)).thenReturn(testProductDto2);
+
+        Collection<ProductDto> resultToApi = productServiceImpl.findAllProducts();
+
+        assertThat(resultToApi).hasSize(2);
+        assertThat(resultToApi).contains(testProductDto1);
+
+        verify(mockProductRepository).findAll();
+        verify(mockProductMapper).toDto(testProduct1);
+        verify(mockProductMapper).toDto(testProduct2);
+    }
+
+    @Test
+    public void testCreateProduct(){
+
+    }
+
+    @Test
+    public void testUpdateProduct(){
+
+    }
+
+    @Test
+    public void testDeleteProduct(){
+
     }
 
 }
