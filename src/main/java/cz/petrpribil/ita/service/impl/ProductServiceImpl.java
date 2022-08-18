@@ -10,8 +10,8 @@ import cz.petrpribil.ita.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
@@ -24,7 +24,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductMapper productMapper;
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public ProductDto findProduct(Long id) {
         log.info("Fetching product " + id + "...");
         ProductDto product = productRepository.findById(id)
@@ -33,7 +33,8 @@ public class ProductServiceImpl implements ProductService {
         log.debug("Displayed product " + product);
         return product;
     }
-
+    @Override
+    @Transactional(readOnly = true)
     public Collection<ProductDto> findAllProducts() {
         log.info("Fetching all the products");
         Collection <ProductDto> products = productRepository.findAll().stream()
@@ -42,15 +43,18 @@ public class ProductServiceImpl implements ProductService {
         log.debug("Displayed " + (products.size()) + " products");
         return products;
     }
-
+    @Override
+    @Transactional
     public ProductDto createProduct(CreateProductDto productDto) {
         log.debug("Creating product ... ");
         Product product = productMapper.toDomain(productDto);
-        Product savedProduct = productRepository.save(product);
-        log.debug("Product created: " + mapToDto(savedProduct));
-        return mapToDto(savedProduct);
+        productRepository.save(product);
+        ProductDto savedProduct = productMapper.toDto(product);
+        log.debug("Product created: " + savedProduct);
+        return savedProduct;
     }
-
+    @Override
+    @Transactional
     public ProductDto updateProduct(Long id, ProductDto productDto) {
         log.debug("Product " + id + " is being updated");
         if (!productRepository.existsById(id)) {
@@ -61,7 +65,8 @@ public class ProductServiceImpl implements ProductService {
         log.debug("Product was updated as " + mapToDto(savedProduct));
         return mapToDto(savedProduct);
     }
-
+    @Override
+    @Transactional
     public void deleteProduct(Long id) {
         log.debug("Product " + id + " was deleted");
         productRepository.deleteById(id);
@@ -76,15 +81,6 @@ public class ProductServiceImpl implements ProductService {
                 product.getStock(),
                 product.getId()
         );
-    }
-
-    private Product mapToDomain(CreateProductDto product) {
-        return new Product()
-                .setName(product.getName())
-                .setDescription(product.getDescription())
-                .setImage(product.getImage())
-                .setPrice(product.getPrice())
-                .setStock(product.getStock());
     }
 
     private Product mapToDomain(ProductDto product) {
