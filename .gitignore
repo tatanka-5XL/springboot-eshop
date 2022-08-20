@@ -2,6 +2,7 @@ logs/*
 .DS_Store/*
 HELP.md
 test_products.json
+notes.txt
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
