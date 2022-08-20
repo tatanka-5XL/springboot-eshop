@@ -3,18 +3,13 @@ package cz.petrpribil.ita.mapper;
 import cz.petrpribil.ita.domain.Product;
 import cz.petrpribil.ita.model.CreateProductDto;
 import cz.petrpribil.ita.model.ProductDto;
-import lombok.With;
 import org.assertj.core.api.WithAssertions;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
 import static cz.petrpribil.ita.mother.ProductMother.getTestCreateProductDto;
-import static cz.petrpribil.ita.mother.ProductMother.getTestProductDto;
 import static cz.petrpribil.ita.mother.ProductMother.getTestProduct;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+
 
 class ProductMapperTest implements WithAssertions {
 

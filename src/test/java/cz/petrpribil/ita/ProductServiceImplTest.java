@@ -105,7 +105,7 @@ public class ProductServiceImplTest implements WithAssertions {
     }
 
     @Test
-    public void testUpdateProduct(){
+    public void testUpdateProduct() {
         Product testProduct = getTestProduct();
         ProductDto testProductDto = getTestProductDto();
         CreateProductDto testCreateProductDto = getTestCreateProductDto();
@@ -121,12 +121,19 @@ public class ProductServiceImplTest implements WithAssertions {
         verify(mockProductRepository).findById(id);
         verify(mockProductMapper).mergeProduct(testProduct, testCreateProductDto);
         verify(mockProductMapper).toDto(testProduct);
+    }
 
-        long wrong_id = 5L;
+        @Test
+        public void testUpdatedProductNotFound(){
+        CreateProductDto testCreateProductDto = getTestCreateProductDto();
+        long id = 5L;
 
-        when(mockProductRepository.findById(wrong_id)).thenReturn(Optional.empty());
+        when(mockProductRepository.findById(id)).thenReturn(Optional.empty());
 
-        assertThrows(ProductNotFoundException.class, () -> productServiceImpl.updateProduct(wrong_id, testCreateProductDto));
+        assertThrows(ProductNotFoundException.class, () -> productServiceImpl.updateProduct(id, testCreateProductDto));
+
+        verify(mockProductRepository).findById(id);
+        verifyNoInteractions(mockProductMapper);
     }
 
     @Test
