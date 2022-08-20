@@ -1,4 +1,4 @@
-package cz.petrpribil.ita.validator;
+package cz.petrpribil.ita.validation;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

@@ -1,4 +1,4 @@
-package cz.petrpribil.ita;
+package cz.petrpribil.ita.service.impl;
 
 import cz.petrpribil.ita.domain.Product;
 import cz.petrpribil.ita.exception.ProductNotFoundException;

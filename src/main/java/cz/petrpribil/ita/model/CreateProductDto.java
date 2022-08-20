@@ -1,6 +1,6 @@
 package cz.petrpribil.ita.model;
 
-import cz.petrpribil.ita.validator.StartsWithUppercase;
+import cz.petrpribil.ita.validation.StartsWithUppercase;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
