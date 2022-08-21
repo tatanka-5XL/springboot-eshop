@@ -5,6 +5,7 @@ import cz.petrpribil.ita.exception.ProductNotFoundException;
 import cz.petrpribil.ita.mapper.ProductMapper;
 import cz.petrpribil.ita.model.CreateProductDto;
 import cz.petrpribil.ita.model.ProductDto;
+import cz.petrpribil.ita.model.ProductSimpleDto;
 import cz.petrpribil.ita.repository.ProductRepository;
 import cz.petrpribil.ita.service.impl.ProductServiceImpl;
 import org.assertj.core.api.WithAssertions;
@@ -66,7 +67,7 @@ public class ProductServiceImplTest implements WithAssertions {
     public void testFindAllProducts(){
         Product testProduct1 = getTestProduct();
         Product testProduct2 = getTestProduct();
-        ProductDto testProductDto1 = getTestProductDto();
+        ProductDto testProductDto1 = getTestProductSimpleDto();
         ProductDto testProductDto2 = getTestProductDto();
 
         when(mockProductRepository.findAll()).thenReturn(List.of(testProduct1, testProduct2));
@@ -74,7 +75,7 @@ public class ProductServiceImplTest implements WithAssertions {
         when(mockProductMapper.toDto(testProduct1)).thenReturn(testProductDto1);
         when(mockProductMapper.toDto(testProduct2)).thenReturn(testProductDto2);
 
-        Collection<ProductDto> resultToApi = productServiceImpl.findAllProducts();
+        Collection<ProductSimpleDto> resultToApi = productServiceImpl.findAllProducts();
 
         assertThat(resultToApi).hasSize(2);
         assertThat(resultToApi).contains(testProductDto1);

@@ -1,6 +1,5 @@
 package cz.petrpribil.ita.model;
 
-import cz.petrpribil.ita.domain.Manufacturer;
 import cz.petrpribil.ita.validation.StartsWithUppercase;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;

@@ -5,6 +5,7 @@ import cz.petrpribil.ita.exception.ProductNotFoundException;
 import cz.petrpribil.ita.mapper.ProductMapper;
 import cz.petrpribil.ita.model.CreateProductDto;
 import cz.petrpribil.ita.model.ProductDto;
+import cz.petrpribil.ita.model.ProductSimpleDto;
 import cz.petrpribil.ita.repository.ProductRepository;
 import cz.petrpribil.ita.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -35,10 +36,10 @@ public class ProductServiceImpl implements ProductService {
     }
     @Override
     @Transactional(readOnly = true)
-    public Collection<ProductDto> findAllProducts() {
+    public Collection<ProductSimpleDto> findAllProducts() {
         log.info("Fetching all the products");
-        Collection <ProductDto> products = productRepository.findAll().stream()
-                .map(productMapper::toDto)
+        Collection <ProductSimpleDto> products = productRepository.findAll().stream()
+                .map(productMapper::toSimpleDto)
                 .collect(Collectors.toList());
         log.debug("Displayed " + (products.size()) + " products");
         return products;

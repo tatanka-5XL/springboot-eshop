@@ -2,6 +2,7 @@ package cz.petrpribil.ita.rest;
 
 import cz.petrpribil.ita.model.CreateProductDto;
 import cz.petrpribil.ita.model.ProductDto;
+import cz.petrpribil.ita.model.ProductSimpleDto;
 import cz.petrpribil.ita.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,7 @@ public class ProductController {
     }
 
     @GetMapping
-    public Collection<ProductDto> findAllProducts() {
+    public Collection<ProductSimpleDto> findAllProducts() {
         return productService.findAllProducts();
     }
 
