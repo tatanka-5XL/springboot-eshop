@@ -8,10 +8,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-public class Manufacturer {
-    @Id
-    @GeneratedValue
-    private Long id;
+public class Manufacturer extends AbstractEntity {
     private String name;
     private String about;
     private String vatNr;
