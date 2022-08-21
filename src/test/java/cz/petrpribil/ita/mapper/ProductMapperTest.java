@@ -50,5 +50,6 @@ class ProductMapperTest implements WithAssertions {
         assertThat(resultToDomain.getDescription()).isEqualTo(testCreateProductDto.getDescription());
         assertThat(resultToDomain.getImage()).isEqualTo(testCreateProductDto.getImage());
         assertThat(resultToDomain.getPrice()).isEqualTo(testCreateProductDto.getPrice());
-        assertThat(resultToDomain.getStock()).isEqualTo(testCreateProductDto.getStock());    }
+        assertThat(resultToDomain.getStock()).isEqualTo(testCreateProductDto.getStock());
+    }
 }
