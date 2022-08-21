@@ -9,7 +9,6 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@Accessors(chain = true)
 public class Product {
     @Id
     @GeneratedValue

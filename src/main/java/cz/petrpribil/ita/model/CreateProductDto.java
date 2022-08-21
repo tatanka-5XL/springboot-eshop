@@ -15,7 +15,6 @@ import javax.validation.constraints.Size;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Accessors(chain = true)
 public class CreateProductDto {
     @NotBlank
     @Size(max=256)

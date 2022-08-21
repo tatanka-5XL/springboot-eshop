@@ -9,6 +9,5 @@ import javax.persistence.Entity;
 @Entity
 @Getter
 @Setter
-@Accessors(chain = true)
 public class Manufacturer {
 }
