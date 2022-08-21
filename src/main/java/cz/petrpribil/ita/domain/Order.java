@@ -9,11 +9,10 @@ import javax.persistence.Entity;
 @Getter
 @Setter
 public class Order extends AbstractEntity {
-    private enum status {
-        NEW,
-        COMPLETED,
-        CANCELLED
-    }
-    
-
+//    private enum statuses {
+//        NEW,
+//        COMPLETED,
+//        CANCELLED
+//        }
+        private String status;
 }
