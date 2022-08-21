@@ -3,10 +3,7 @@ package cz.petrpribil.ita.rest;
 import cz.petrpribil.ita.model.ProductGroupDto;
 import cz.petrpribil.ita.service.ProductGroupService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
@@ -16,6 +13,11 @@ import java.util.Collection;
 @RequiredArgsConstructor
 public class ProductGroupController {
     private final ProductGroupService productGroupService;
+
+    @GetMapping("{id}")
+    public ProductGroupDto findProductGroup(@PathVariable("id)") Long id){
+        return productGroupService.findProductGroup(id);
+    }
     @GetMapping
     public Collection<ProductGroupDto> findAll() {
         return productGroupService.findAll();

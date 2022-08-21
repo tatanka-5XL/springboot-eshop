@@ -4,10 +4,7 @@ import cz.petrpribil.ita.domain.Manufacturer;
 import cz.petrpribil.ita.model.ManufacturerDto;
 import cz.petrpribil.ita.service.ManufacturerService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
@@ -18,6 +15,12 @@ import java.util.Collection;
 public class ManufacturerController {
 
     private final ManufacturerService manufacturerService;
+
+    @GetMapping("{id}")
+    public ManufacturerDto findManufacturer(@PathVariable("id") Long id){
+        return manufacturerService.findManufacturer(id);
+    }
+
     @GetMapping
     public Collection<ManufacturerDto> findAll(){
         return manufacturerService.findAll();
