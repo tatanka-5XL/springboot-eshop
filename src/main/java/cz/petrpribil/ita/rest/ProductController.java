@@ -3,6 +3,7 @@ package cz.petrpribil.ita.rest;
 import cz.petrpribil.ita.model.CreateProductDto;
 import cz.petrpribil.ita.model.ProductDto;
 import cz.petrpribil.ita.service.ProductService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,12 +13,9 @@ import java.util.Collection;
 @RestController
 @RequestMapping("api/v1/products")
 @CrossOrigin("http://localhost:8088")
+@RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
-
-    public ProductController(ProductService productService) {
-        this.productService = productService;
-    }
 
     @GetMapping("{id}")
     public ProductDto findProduct(@PathVariable("id") Long id) {
