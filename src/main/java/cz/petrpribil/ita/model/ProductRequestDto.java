@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateProductDto {
+public class ProductRequestDto {
     @NotBlank
     @Size(max=256)
     @StartsWithUppercase(message = "Must start with an uppercase!")

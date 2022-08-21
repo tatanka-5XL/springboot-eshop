@@ -15,7 +15,7 @@ public class ProductGroupController {
     private final ProductGroupService productGroupService;
 
     @GetMapping("{id}")
-    public ProductGroupDto findProductGroup(@PathVariable("id)") Long id){
+    public ProductGroupDto findProductGroup(@PathVariable("id") Long id){
         return productGroupService.findProductGroup(id);
     }
     @GetMapping

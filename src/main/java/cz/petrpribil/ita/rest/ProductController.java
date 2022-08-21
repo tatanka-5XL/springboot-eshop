@@ -1,6 +1,6 @@
 package cz.petrpribil.ita.rest;
 
-import cz.petrpribil.ita.model.CreateProductDto;
+import cz.petrpribil.ita.model.ProductRequestDto;
 import cz.petrpribil.ita.model.ProductDto;
 import cz.petrpribil.ita.model.ProductSimpleDto;
 import cz.petrpribil.ita.service.ProductService;
@@ -29,12 +29,12 @@ public class ProductController {
     }
 
     @PostMapping
-    public ProductDto createProduct(@Valid @RequestBody CreateProductDto createProductDto){
-             return productService.createProduct(createProductDto);
+    public ProductDto createProduct(@Valid @RequestBody ProductRequestDto productRequestDto){
+             return productService.createProduct(productRequestDto);
     }
 
     @PutMapping("{id}")
-    public ProductDto updateProduct(@PathVariable("id") Long id, @Valid @RequestBody CreateProductDto productDto){
+    public ProductDto updateProduct(@PathVariable("id") Long id, @Valid @RequestBody ProductRequestDto productDto){
         return productService.updateProduct(id, productDto);
     }
 

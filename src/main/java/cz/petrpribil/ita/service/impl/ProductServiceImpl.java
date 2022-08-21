@@ -3,7 +3,7 @@ package cz.petrpribil.ita.service.impl;
 import cz.petrpribil.ita.domain.Product;
 import cz.petrpribil.ita.exception.ProductNotFoundException;
 import cz.petrpribil.ita.mapper.ProductMapper;
-import cz.petrpribil.ita.model.CreateProductDto;
+import cz.petrpribil.ita.model.ProductRequestDto;
 import cz.petrpribil.ita.model.ProductDto;
 import cz.petrpribil.ita.model.ProductSimpleDto;
 import cz.petrpribil.ita.repository.ProductRepository;
@@ -46,7 +46,7 @@ public class ProductServiceImpl implements ProductService {
     }
     @Override
     @Transactional
-    public ProductDto createProduct(CreateProductDto productDto) {
+    public ProductDto createProduct(ProductRequestDto productDto) {
         log.debug("Creating product ... ");
         Product product = productMapper.toDomain(productDto);
         productRepository.save(product);
@@ -56,7 +56,7 @@ public class ProductServiceImpl implements ProductService {
     }
     @Override
     @Transactional
-    public ProductDto updateProduct(Long id, CreateProductDto productDto) {
+    public ProductDto updateProduct(Long id, ProductRequestDto productDto) {
         log.debug("Product " + id + " is being updated");
 
         Product product = productRepository.findById(id)

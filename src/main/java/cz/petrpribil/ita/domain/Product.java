@@ -20,4 +20,10 @@ public class Product extends AbstractEntity {
             name = "id_manufacturer"
     )
     private Manufacturer manufacturer;
+    @ManyToOne
+    @JoinColumn (
+            name = "id_product_group"
+    )
+    private ProductGroup productGroup;
+
 }

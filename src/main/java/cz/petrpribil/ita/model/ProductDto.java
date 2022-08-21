@@ -28,4 +28,5 @@ public class ProductDto {
     private Long stock;
     private Long id;
     private ManufacturerDto manufacturer;
+    private ProductGroupDto productGroup;
 }

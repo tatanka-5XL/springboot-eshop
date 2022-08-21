@@ -3,11 +3,10 @@ package cz.petrpribil.ita.service.impl;
 import cz.petrpribil.ita.domain.Product;
 import cz.petrpribil.ita.exception.ProductNotFoundException;
 import cz.petrpribil.ita.mapper.ProductMapper;
-import cz.petrpribil.ita.model.CreateProductDto;
+import cz.petrpribil.ita.model.ProductRequestDto;
 import cz.petrpribil.ita.model.ProductDto;
 import cz.petrpribil.ita.model.ProductSimpleDto;
 import cz.petrpribil.ita.repository.ProductRepository;
-import cz.petrpribil.ita.service.impl.ProductServiceImpl;
 import org.assertj.core.api.WithAssertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -67,7 +66,7 @@ public class ProductServiceImplTest implements WithAssertions {
     public void testFindAllProducts(){
         Product testProduct1 = getTestProduct();
         Product testProduct2 = getTestProduct();
-        ProductDto testProductDto1 = getTestProductSimpleDto();
+        ProductDto testProductDto1 = getTestProductDto();
         ProductDto testProductDto2 = getTestProductDto();
 
         when(mockProductRepository.findAll()).thenReturn(List.of(testProduct1, testProduct2));
@@ -89,17 +88,17 @@ public class ProductServiceImplTest implements WithAssertions {
     public void testCreateProduct(){
         Product testProduct = getTestProduct();
         ProductDto testProductDto = getTestProductDto();
-        CreateProductDto testCreateProductDto = getTestCreateProductDto();
+        ProductRequestDto testProductRequestDto = getTestCreateProductDto();
 
-        when(mockProductMapper.toDomain(testCreateProductDto)).thenReturn(testProduct);
+        when(mockProductMapper.toDomain(testProductRequestDto)).thenReturn(testProduct);
         when(mockProductRepository.save(testProduct)).thenReturn(testProduct);
         when(mockProductMapper.toDto(testProduct)).thenReturn(testProductDto);
 
-        ProductDto createdProduct = productServiceImpl.createProduct(testCreateProductDto);
+        ProductDto createdProduct = productServiceImpl.createProduct(testProductRequestDto);
 
         assertThat(createdProduct).isEqualTo(testProductDto);
 
-        verify(mockProductMapper).toDomain(testCreateProductDto);
+        verify(mockProductMapper).toDomain(testProductRequestDto);
         verify(mockProductRepository).save(testProduct);
         verify(mockProductMapper).toDto(testProduct);
 
@@ -109,29 +108,29 @@ public class ProductServiceImplTest implements WithAssertions {
     public void testUpdateProduct() {
         Product testProduct = getTestProduct();
         ProductDto testProductDto = getTestProductDto();
-        CreateProductDto testCreateProductDto = getTestCreateProductDto();
+        ProductRequestDto testProductRequestDto = getTestCreateProductDto();
         long id = 1L;
 
         when(mockProductRepository.findById(id)).thenReturn(Optional.of(testProduct));
         when(mockProductMapper.toDto(testProduct)).thenReturn(testProductDto);
 
-        ProductDto updatedProduct = productServiceImpl.updateProduct(id, testCreateProductDto);
+        ProductDto updatedProduct = productServiceImpl.updateProduct(id, testProductRequestDto);
 
         assertThat(updatedProduct).isEqualTo(testProductDto);
 
         verify(mockProductRepository).findById(id);
-        verify(mockProductMapper).mergeProduct(testProduct, testCreateProductDto);
+        verify(mockProductMapper).mergeProduct(testProduct, testProductRequestDto);
         verify(mockProductMapper).toDto(testProduct);
     }
 
         @Test
         public void testUpdatedProductNotFound(){
-        CreateProductDto testCreateProductDto = getTestCreateProductDto();
+        ProductRequestDto testProductRequestDto = getTestCreateProductDto();
         long id = 5L;
 
         when(mockProductRepository.findById(id)).thenReturn(Optional.empty());
 
-        assertThrows(ProductNotFoundException.class, () -> productServiceImpl.updateProduct(id, testCreateProductDto));
+        assertThrows(ProductNotFoundException.class, () -> productServiceImpl.updateProduct(id, testProductRequestDto));
 
         verify(mockProductRepository).findById(id);
         verifyNoInteractions(mockProductMapper);
