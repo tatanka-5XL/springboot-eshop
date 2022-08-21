@@ -15,10 +15,4 @@ public class Manufacturer {
     private String name;
     private String about;
     private String vatNr;
-    @ManyToOne
-    @JoinColumn (
-            name = "id_manufacturer"
-    )
-    private Manufacturer manufacturer;
-
 }

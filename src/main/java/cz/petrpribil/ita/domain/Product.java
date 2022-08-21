@@ -18,4 +18,9 @@ public class Product {
     private String image;
     private Long price;
     private Long stock;
+    @ManyToOne
+    @JoinColumn (
+            name = "id_manufacturer"
+    )
+    private Manufacturer manufacturer;
 }
