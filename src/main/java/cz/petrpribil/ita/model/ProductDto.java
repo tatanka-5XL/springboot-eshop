@@ -1,7 +1,6 @@
 package cz.petrpribil.ita.model;
 
 import lombok.*;
-import lombok.experimental.Accessors;
 
 
 @Getter
