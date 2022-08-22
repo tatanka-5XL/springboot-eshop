@@ -1,13 +1,12 @@
 package cz.petrpribil.ita.rest;
 
 import cz.petrpribil.ita.model.CartDto;
+import cz.petrpribil.ita.model.CartRequestDto;
 import cz.petrpribil.ita.service.CartService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Collection;
 
 @RestController
@@ -17,9 +16,9 @@ import java.util.Collection;
 public class CartController {
     private final CartService cartService;
 
-    @GetMapping
-    public Collection<CartDto> findAll() {
-        return cartService.findAll();
+    @PostMapping("products/{id}")
+    public CartDto createCart(@PathVariable("id") Long id, @Valid @RequestBody CartRequestDto cartRequestDto) {
+        return cartService.createCart(id, cartRequestDto);
     }
 
 }

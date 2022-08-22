@@ -1,8 +1,6 @@
 package cz.petrpribil.ita.service.impl;
 
-import cz.petrpribil.ita.domain.Manufacturer;
 import cz.petrpribil.ita.domain.Product;
-import cz.petrpribil.ita.domain.ProductGroup;
 import cz.petrpribil.ita.exception.ManufacturerNotFoundException;
 import cz.petrpribil.ita.exception.ProductGroupNotFoundException;
 import cz.petrpribil.ita.exception.ProductNotFoundException;
@@ -55,13 +53,13 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public ProductDto createProduct(ProductRequestDto productDto) {
-        log.debug("Creating product ... ");
+
         Product product = productMapper.toDomain(productDto);
         Long manufacturerId = product.getManufacturer().getId();
-        Manufacturer checkedManufacturer = manufacturerRepository.findById(manufacturerId)
-                        .orElseThrow(() -> new ManufacturerNotFoundException(manufacturerId));
+        manufacturerRepository.findById(manufacturerId)
+                .orElseThrow(() -> new ManufacturerNotFoundException(manufacturerId));
         Long productGroupId = product.getProductGroup().getId();
-        ProductGroup checkedProductGroup = productGroupRepository.findById(productGroupId)
+        productGroupRepository.findById(productGroupId)
                 .orElseThrow(() -> new ProductGroupNotFoundException(productGroupId));
         productRepository.save(product);
         ProductDto savedProduct = productMapper.toDto(product);
