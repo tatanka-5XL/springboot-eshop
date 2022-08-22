@@ -1,11 +1,17 @@
 package cz.petrpribil.ita.service.impl;
 
+import cz.petrpribil.ita.domain.Manufacturer;
 import cz.petrpribil.ita.domain.Product;
+import cz.petrpribil.ita.domain.ProductGroup;
+import cz.petrpribil.ita.exception.ManufacturerNotFoundException;
+import cz.petrpribil.ita.exception.ProductGroupNotFoundException;
 import cz.petrpribil.ita.exception.ProductNotFoundException;
 import cz.petrpribil.ita.mapper.ProductMapper;
 import cz.petrpribil.ita.model.ProductRequestDto;
 import cz.petrpribil.ita.model.ProductDto;
 import cz.petrpribil.ita.model.ProductSimpleDto;
+import cz.petrpribil.ita.repository.ManufacturerRepository;
+import cz.petrpribil.ita.repository.ProductGroupRepository;
 import cz.petrpribil.ita.repository.ProductRepository;
 import cz.petrpribil.ita.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +29,8 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
+    private final ManufacturerRepository manufacturerRepository;
+    private final ProductGroupRepository productGroupRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -49,6 +57,12 @@ public class ProductServiceImpl implements ProductService {
     public ProductDto createProduct(ProductRequestDto productDto) {
         log.debug("Creating product ... ");
         Product product = productMapper.toDomain(productDto);
+        Long manufacturerId = product.getManufacturer().getId();
+        Manufacturer checkedManufacturer = manufacturerRepository.findById(manufacturerId)
+                        .orElseThrow(() -> new ManufacturerNotFoundException(manufacturerId));
+        Long productGroupId = product.getProductGroup().getId();
+        ProductGroup checkedProductGroup = productGroupRepository.findById(productGroupId)
+                .orElseThrow(() -> new ProductGroupNotFoundException(productGroupId));
         productRepository.save(product);
         ProductDto savedProduct = productMapper.toDto(product);
         log.debug("Product created: " + savedProduct);
