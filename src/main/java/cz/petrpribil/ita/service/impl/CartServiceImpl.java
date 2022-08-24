@@ -40,6 +40,7 @@ public class CartServiceImpl implements CartService {
         cart.setProducts(products); // is it correct?
         cartRepository.save(cart);
         CartDto savedCart = cartMapper.toDto(cart);
+        log.debug("Create cart " + savedCart);
         return savedCart;
     }
 
