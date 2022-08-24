@@ -1,11 +1,11 @@
 package cz.petrpribil.ita.domain;
 
+import cz.petrpribil.ita.model.ProductDto;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -18,4 +18,6 @@ public class Order extends AbstractEntity {
         }
         @Enumerated(EnumType.STRING)
         private Status status;
+        @OneToMany
+        private List<Product> products;
 }

@@ -17,8 +17,14 @@ public class CartController {
     private final CartService cartService;
 
     @PostMapping("products/{id}")
-    public CartDto createCart(@PathVariable("id") Long id, @Valid @RequestBody CartRequestDto cartRequestDto) {
+    public CartDto createCart(@PathVariable("id") Long id, CartRequestDto cartRequestDto) {
         return cartService.createCart(id, cartRequestDto);
     }
 
+    @PostMapping("{cart_id}/products/{id}")
+    public CartDto updateCart(@PathVariable("cart_id") Long cart_id, @PathVariable("id") Long id, @Valid @RequestBody CartRequestDto cartDto) {
+        return cartService.updateCart(cart_id, id, cartDto);
+    }
 }
+
+// @Valid @RequestBody CartRequestDto cartDto
