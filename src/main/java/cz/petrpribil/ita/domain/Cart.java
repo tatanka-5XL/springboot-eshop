@@ -10,6 +10,6 @@ import java.util.List;
 @Getter
 @Setter
 public class Cart extends AbstractEntity {
-    @OneToMany
+    @ManyToMany
     private List<Product> products;
 }

@@ -18,6 +18,6 @@ public class Order extends AbstractEntity {
         }
         @Enumerated(EnumType.STRING)
         private Status status;
-        @OneToMany
+        @ManyToMany
         private List<Product> products;
 }
