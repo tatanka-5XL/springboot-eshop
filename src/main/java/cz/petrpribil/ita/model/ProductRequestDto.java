@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Getter
@@ -28,4 +29,8 @@ public class ProductRequestDto {
     private Long price;
     @Range
     private Long stock;
+    @NotNull
+    private Long manufacturerId;
+    @NotNull
+    private Long productGroupId;
 }

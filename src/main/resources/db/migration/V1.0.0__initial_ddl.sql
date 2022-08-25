@@ -50,7 +50,7 @@ create table r_cart_product
 (
     id_cart    int8 not null,
     id_product int8 not null
-);  
+);
 create table r_order_product
 (
     id_order   int8 not null,
