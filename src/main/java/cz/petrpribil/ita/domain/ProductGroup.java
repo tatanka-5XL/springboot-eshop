@@ -1,13 +1,11 @@
 package cz.petrpribil.ita.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.Entity;
 
 @Entity
-@Getter
-@Setter
+@Data
 public class ProductGroup extends AbstractEntity {
     private String name;
     private String description;

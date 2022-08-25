@@ -6,6 +6,5 @@ import cz.petrpribil.ita.model.OrderRequestDto;
 import java.util.Collection;
 
 public interface OrderService {
-    Collection<OrderDto> findAll();
-    OrderDto createOrder(Long cart_id, OrderRequestDto orderRequestDto);
+    OrderDto createOrder(Long cartId);
 }

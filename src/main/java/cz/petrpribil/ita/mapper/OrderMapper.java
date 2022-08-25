@@ -6,7 +6,7 @@ import cz.petrpribil.ita.model.OrderRequestDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 
-@Mapper
+@Mapper(uses = ProductMapper.class)
 public interface OrderMapper {
     Order toDomain(OrderRequestDto orderDto);
     OrderDto toDto(Order order);

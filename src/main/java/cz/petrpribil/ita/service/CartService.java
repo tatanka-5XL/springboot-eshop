@@ -1,12 +1,13 @@
 package cz.petrpribil.ita.service;
 
 import cz.petrpribil.ita.model.CartDto;
-import cz.petrpribil.ita.model.CartRequestDto;
 
 
 public interface CartService {
 
-    CartDto createCart(Long id, CartRequestDto cartRequestDto);
+    CartDto createCart(Long productId);
 
-    CartDto updateCart(Long cart_id, Long id, CartRequestDto cartDto);
+    CartDto addToCart(Long cartId, Long productId);
+
+    CartDto findCart(Long cartId);
 }

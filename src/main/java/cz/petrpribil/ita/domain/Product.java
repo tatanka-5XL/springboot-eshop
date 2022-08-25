@@ -9,6 +9,9 @@ import javax.persistence.*;
 @Getter
 @Setter
 public class Product extends AbstractEntity {
+    @Id
+    @GeneratedValue
+    private Long id;
     private String name;
     @Column(length=512)
     private String description;

@@ -8,7 +8,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 
 // v pluginu, nastaveni compileru mam naschval defaultcomponentModel jako spring
-@Mapper(uses = ManufacturerMapper.class)
+@Mapper(uses = {ManufacturerMapper.class, ProductGroupMapper.class})
 public interface ProductMapper {
     Product toDomain(ProductRequestDto productDto);
     ProductDto toDto(Product product);

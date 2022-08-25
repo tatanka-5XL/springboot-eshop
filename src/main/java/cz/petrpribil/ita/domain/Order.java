@@ -1,23 +1,27 @@
 package cz.petrpribil.ita.domain;
 
-import cz.petrpribil.ita.model.ProductDto;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
+@Data
+@Table(name="EshopOrder")
 public class Order extends AbstractEntity {
-        public enum Status {
+        @ManyToMany
+        @JoinTable(
+                name="r_order_product",
+                joinColumns = @JoinColumn(name="id_order"),
+                inverseJoinColumns = @JoinColumn(name="id_product")
+        )
+        private List<Product> products;
+        public enum OrderStatus {
         NEW,
         COMPLETED,
         CANCELLED
         }
         @Enumerated(EnumType.STRING)
-        private Status status;
-        @ManyToMany
-        private List<Product> products;
+        private OrderStatus orderStatus;
+
 }

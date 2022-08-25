@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderDto {
-    private String status;
+    private Long orderId;
     private List<Product> products;
-    private Long id;
+
 }

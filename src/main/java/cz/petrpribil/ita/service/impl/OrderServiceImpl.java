@@ -6,7 +6,6 @@ import cz.petrpribil.ita.domain.Product;
 import cz.petrpribil.ita.exception.CartNotFoundException;
 import cz.petrpribil.ita.mapper.OrderMapper;
 import cz.petrpribil.ita.model.OrderDto;
-import cz.petrpribil.ita.model.OrderRequestDto;
 import cz.petrpribil.ita.repository.CartRepository;
 import cz.petrpribil.ita.repository.OrderRepository;
 import cz.petrpribil.ita.service.OrderService;
@@ -15,9 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Service
 @RequiredArgsConstructor
@@ -30,22 +28,17 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public Collection<OrderDto> findAll() {
-        return orderRepository.findAll().stream()
-                .map(orderMapper::toDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
     @Transactional
-    public OrderDto createOrder(Long cart_id, OrderRequestDto orderDto){
+    public OrderDto createOrder(Long cartId){
         log.debug("Creating order...");
-        Order order = orderMapper.toDomain(orderDto);
-        Cart cart = cartRepository.findById(cart_id)
-                .orElseThrow(() -> new CartNotFoundException(cart_id));
+        Cart cart = cartRepository.findById(cartId)
+                .orElseThrow(() -> new CartNotFoundException(cartId));
+        Order order = new Order();
         List<Product> products = cart.getProducts();
         order.setProducts(products);
+        order.setOrderStatus(Order.OrderStatus.NEW);
         orderRepository.save(order);
+        cartRepository.delete(cart);
         OrderDto savedOrder = orderMapper.toDto(order);
         log.debug("Created order" + savedOrder);
         return savedOrder;
