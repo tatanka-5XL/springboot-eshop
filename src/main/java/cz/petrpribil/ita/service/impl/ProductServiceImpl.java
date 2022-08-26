@@ -1,10 +1,15 @@
 package cz.petrpribil.ita.service.impl;
 
 import cz.petrpribil.ita.domain.Product;
+import cz.petrpribil.ita.exception.ManufacturerNotFoundException;
+import cz.petrpribil.ita.exception.ProductGroupNotFoundException;
 import cz.petrpribil.ita.exception.ProductNotFoundException;
 import cz.petrpribil.ita.mapper.ProductMapper;
-import cz.petrpribil.ita.model.CreateProductDto;
+import cz.petrpribil.ita.model.ProductRequestDto;
 import cz.petrpribil.ita.model.ProductDto;
+import cz.petrpribil.ita.model.ProductSimpleDto;
+import cz.petrpribil.ita.repository.ManufacturerRepository;
+import cz.petrpribil.ita.repository.ProductGroupRepository;
 import cz.petrpribil.ita.repository.ProductRepository;
 import cz.petrpribil.ita.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +27,8 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
+    private final ManufacturerRepository manufacturerRepository;
+    private final ProductGroupRepository productGroupRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -35,19 +42,25 @@ public class ProductServiceImpl implements ProductService {
     }
     @Override
     @Transactional(readOnly = true)
-    public Collection<ProductDto> findAllProducts() {
+    public Collection<ProductSimpleDto> findAllProducts() {
         log.info("Fetching all the products");
-        Collection <ProductDto> products = productRepository.findAll().stream()
-                .map(productMapper::toDto)
+        Collection <ProductSimpleDto> products = productRepository.findAll().stream()
+                .map(productMapper::toSimpleDto)
                 .collect(Collectors.toList());
         log.debug("Displayed " + (products.size()) + " products");
         return products;
     }
     @Override
     @Transactional
-    public ProductDto createProduct(CreateProductDto productDto) {
-        log.debug("Creating product ... ");
+    public ProductDto createProduct(ProductRequestDto productDto) {
+
         Product product = productMapper.toDomain(productDto);
+        Long manufacturerId = product.getManufacturer().getId();
+        manufacturerRepository.findById(manufacturerId)
+                .orElseThrow(() -> new ManufacturerNotFoundException(manufacturerId));
+        Long productGroupId = product.getProductGroup().getId();
+        productGroupRepository.findById(productGroupId)
+                .orElseThrow(() -> new ProductGroupNotFoundException(productGroupId));
         productRepository.save(product);
         ProductDto savedProduct = productMapper.toDto(product);
         log.debug("Product created: " + savedProduct);
@@ -55,7 +68,7 @@ public class ProductServiceImpl implements ProductService {
     }
     @Override
     @Transactional
-    public ProductDto updateProduct(Long id, CreateProductDto productDto) {
+    public ProductDto updateProduct(Long id, ProductRequestDto productDto) {
         log.debug("Product " + id + " is being updated");
 
         Product product = productRepository.findById(id)

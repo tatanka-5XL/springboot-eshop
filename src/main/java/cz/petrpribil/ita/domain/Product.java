@@ -2,15 +2,13 @@ package cz.petrpribil.ita.domain;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
-@Accessors(chain = true)
-public class Product {
+public class Product extends AbstractEntity {
     @Id
     @GeneratedValue
     private Long id;
@@ -20,4 +18,15 @@ public class Product {
     private String image;
     private Long price;
     private Long stock;
+    @ManyToOne
+    @JoinColumn (
+            name = "id_manufacturer"
+    )
+    private Manufacturer manufacturer;
+    @ManyToOne
+    @JoinColumn (
+            name = "id_product_group"
+    )
+    private ProductGroup productGroup;
+
 }

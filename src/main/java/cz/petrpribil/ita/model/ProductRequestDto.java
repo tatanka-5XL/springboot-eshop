@@ -1,22 +1,22 @@
 package cz.petrpribil.ita.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import cz.petrpribil.ita.validation.StartsWithUppercase;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.Accessors;
 import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Accessors(chain = true)
-public class CreateProductDto {
+public class ProductRequestDto {
     @NotBlank
     @Size(max=256)
     @StartsWithUppercase(message = "Must start with an uppercase!")
@@ -30,4 +30,10 @@ public class CreateProductDto {
     private Long price;
     @Range
     private Long stock;
+    @NotNull
+    @JsonProperty("author")
+    private Long manufacturerId;
+    @NotNull
+    @JsonProperty("genre")
+    private Long productGroupId;
 }

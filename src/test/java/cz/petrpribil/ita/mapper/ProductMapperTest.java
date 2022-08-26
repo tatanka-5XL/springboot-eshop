@@ -1,7 +1,7 @@
 package cz.petrpribil.ita.mapper;
 
 import cz.petrpribil.ita.domain.Product;
-import cz.petrpribil.ita.model.CreateProductDto;
+import cz.petrpribil.ita.model.ProductRequestDto;
 import cz.petrpribil.ita.model.ProductDto;
 import org.assertj.core.api.WithAssertions;
 import org.junit.jupiter.api.Test;
@@ -17,7 +17,7 @@ class ProductMapperTest implements WithAssertions {
 
     @Test
     void testToDomain() {
-        CreateProductDto productDto = getTestCreateProductDto();
+        ProductRequestDto productDto = getTestCreateProductDto();
         Product result = mockProductMapper.toDomain(productDto);
 
         assertThat(result.getName()).isEqualTo(productDto.getName());
@@ -42,14 +42,14 @@ class ProductMapperTest implements WithAssertions {
 
     @Test
     void testMergeProduct() {
-        CreateProductDto testCreateProductDto = getTestCreateProductDto();
+        ProductRequestDto testProductRequestDto = getTestCreateProductDto();
         Product resultToDomain = getTestProduct();
-        mockProductMapper.mergeProduct(resultToDomain, testCreateProductDto);
+        mockProductMapper.mergeProduct(resultToDomain, testProductRequestDto);
 
-        assertThat(resultToDomain.getName()).isEqualTo(testCreateProductDto.getName());
-        assertThat(resultToDomain.getDescription()).isEqualTo(testCreateProductDto.getDescription());
-        assertThat(resultToDomain.getImage()).isEqualTo(testCreateProductDto.getImage());
-        assertThat(resultToDomain.getPrice()).isEqualTo(testCreateProductDto.getPrice());
-        assertThat(resultToDomain.getStock()).isEqualTo(testCreateProductDto.getStock());
+        assertThat(resultToDomain.getName()).isEqualTo(testProductRequestDto.getName());
+        assertThat(resultToDomain.getDescription()).isEqualTo(testProductRequestDto.getDescription());
+        assertThat(resultToDomain.getImage()).isEqualTo(testProductRequestDto.getImage());
+        assertThat(resultToDomain.getPrice()).isEqualTo(testProductRequestDto.getPrice());
+        assertThat(resultToDomain.getStock()).isEqualTo(testProductRequestDto.getStock());
     }
 }
