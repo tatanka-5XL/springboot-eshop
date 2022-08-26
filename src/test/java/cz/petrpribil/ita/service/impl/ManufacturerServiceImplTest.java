@@ -31,25 +31,6 @@ public class ManufacturerServiceImplTest implements WithAssertions {
 
 
         @Test
-        void testFindManufacturer() {
-            Manufacturer testManufacturer = getTestManufacturer();
-            ManufacturerDto expectedResult = getTestManufacturerDto();
-
-            when(mockManufacturerRepository.findById(200L))
-                    .thenReturn(Optional.of(testManufacturer));
-            when(mockManufacturerMapper.toDto(testManufacturer))
-                    .thenReturn((expectedResult));
-
-            ManufacturerDto result = manufacturerServiceImpl.findManufacturer(100L);
-
-            assertThat(result).isEqualTo(expectedResult);
-
-            verify(mockManufacturerRepository).findById(100L);
-            verify(mockManufacturerMapper).toDto(testManufacturer);
-
-        }
-
-        @Test
         void testFindAll(){
             Manufacturer testManufacturer1 = getTestManufacturer();
             Manufacturer testManufacturer2 = getTestManufacturer();
@@ -73,3 +54,30 @@ public class ManufacturerServiceImplTest implements WithAssertions {
         }
 
 }
+
+
+
+
+
+/*
+
+ @Test
+ void testFindManufacturer() {
+ Manufacturer testManufacturer = getTestManufacturer();
+ ManufacturerDto expectedResult = getTestManufacturerDto();
+
+ when(mockManufacturerRepository.findById(200L))
+ .thenReturn(Optional.of(testManufacturer));
+ when(mockManufacturerMapper.toDto(testManufacturer))
+ .thenReturn((expectedResult));
+
+ ManufacturerDto result = manufacturerServiceImpl.findManufacturer(100L);
+
+ assertThat(result).isEqualTo(expectedResult);
+
+ verify(mockManufacturerRepository).findById(100L);
+ verify(mockManufacturerMapper).toDto(testManufacturer);
+
+ }
+
+ */

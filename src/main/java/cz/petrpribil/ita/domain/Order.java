@@ -16,12 +16,13 @@ public class Order extends AbstractEntity {
                 inverseJoinColumns = @JoinColumn(name="id_product")
         )
         private List<Product> products;
-        public enum OrderStatus {
-        NEW,
-        COMPLETED,
-        CANCELLED
-        }
         @Enumerated(EnumType.STRING)
         private OrderStatus orderStatus;
+
+        public enum OrderStatus {
+                NEW,
+                COMPLETED,
+                CANCELLED
+        }
 
 }

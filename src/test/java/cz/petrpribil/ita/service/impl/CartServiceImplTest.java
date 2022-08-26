@@ -5,11 +5,8 @@ import cz.petrpribil.ita.domain.Product;
 import cz.petrpribil.ita.exception.CartNotFoundException;
 import cz.petrpribil.ita.exception.ProductNotFoundException;
 import cz.petrpribil.ita.mapper.CartMapper;
-import cz.petrpribil.ita.mapper.OrderMapper;
 import cz.petrpribil.ita.model.CartDto;
-import cz.petrpribil.ita.model.OrderDto;
 import cz.petrpribil.ita.repository.CartRepository;
-import cz.petrpribil.ita.repository.OrderRepository;
 import cz.petrpribil.ita.repository.ProductRepository;
 import org.assertj.core.api.WithAssertions;
 import org.junit.jupiter.api.Test;
@@ -25,7 +22,6 @@ import java.util.Optional;
 
 import static cz.petrpribil.ita.mother.CartMother.getTestCart;
 import static cz.petrpribil.ita.mother.CartMother.getTestCartDto;
-import static cz.petrpribil.ita.mother.OrderMother.getTestOrderDto;
 import static cz.petrpribil.ita.mother.ProductMother.getTestProduct;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -43,7 +39,7 @@ public class CartServiceImplTest implements WithAssertions {
     @Mock
     private CartMapper mockCartMapper;
     @Captor
-    private ArgumentCaptor<Cart> savedCartCaptor;
+    private ArgumentCaptor<Cart> cartArgumentCaptor;
 
     @Test
     void testCreateCart(){
@@ -54,8 +50,13 @@ public class CartServiceImplTest implements WithAssertions {
         when(mockCartMapper.toDto(any())).thenReturn(testCartDto);
 
         CartDto createdCart = cartServiceImpl.createCart(1L);
+
         assertThat(createdCart).isEqualTo(testCartDto);
-        verify(mockCartRepository).save(savedCartCaptor.capture());
+        verify(mockCartRepository).save(cartArgumentCaptor.capture());
+
+        assertThat(cartArgumentCaptor.getValue().getProducts().contains(testProduct));
+
+        verify(cartArgumentCaptor.getValue().getProducts());
     }
 
     @Test

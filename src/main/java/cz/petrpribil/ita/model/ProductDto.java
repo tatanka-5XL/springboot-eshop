@@ -1,5 +1,6 @@
 package cz.petrpribil.ita.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import cz.petrpribil.ita.validation.StartsWithUppercase;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
@@ -27,6 +28,8 @@ public class ProductDto {
     @Min(0)
     private Long stock;
     private Long id;
+    @JsonProperty("author")
     private ManufacturerDto manufacturer;
+    @JsonProperty("genre")
     private ProductGroupDto productGroup;
 }

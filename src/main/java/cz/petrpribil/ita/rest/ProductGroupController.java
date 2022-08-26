@@ -13,13 +13,21 @@ import java.util.Collection;
 @RequiredArgsConstructor
 public class ProductGroupController {
     private final ProductGroupService productGroupService;
-
-    @GetMapping("{id}")
-    public ProductGroupDto findProductGroup(@PathVariable("id") Long id){
-        return productGroupService.findProductGroup(id);
-    }
     @GetMapping
     public Collection<ProductGroupDto> findAll() {
         return productGroupService.findAll();
     }
 }
+
+
+
+
+
+/*
+
+ @GetMapping("{id}")
+ public ProductGroupDto findProductGroup(@PathVariable("id") Long id){
+ return productGroupService.findProductGroup(id);
+
+
+ */

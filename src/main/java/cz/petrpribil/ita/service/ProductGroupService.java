@@ -6,6 +6,8 @@ import java.util.Collection;
 
 public interface ProductGroupService {
 
-    ProductGroupDto findProductGroup(Long id);
     Collection<ProductGroupDto> findAll();
 }
+
+
+//    ProductGroupDto findProductGroup(Long id);

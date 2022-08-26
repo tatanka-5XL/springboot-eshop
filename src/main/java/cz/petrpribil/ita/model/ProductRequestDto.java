@@ -1,5 +1,6 @@
 package cz.petrpribil.ita.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import cz.petrpribil.ita.validation.StartsWithUppercase;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,7 +31,9 @@ public class ProductRequestDto {
     @Range
     private Long stock;
     @NotNull
+    @JsonProperty("author")
     private Long manufacturerId;
     @NotNull
+    @JsonProperty("genre")
     private Long productGroupId;
 }

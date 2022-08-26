@@ -18,13 +18,13 @@ public class CartController {
         return cartService.createCart(productId);
     }
 
-    @PostMapping("{cartId}/products/{productId}")
-    CartDto addToCart(@PathVariable("productId") Long productId, @PathVariable("cartId") Long cartId) {
-        return cartService.addToCart(productId, cartId);
+    @PostMapping("{id}/products/{productId}")
+    CartDto addToCart(@PathVariable("productId") Long productId, @PathVariable("id") Long id) {
+        return cartService.addToCart(productId, id);
     }
 
-    @GetMapping("{cartId}")
-    CartDto findCart(@PathVariable("cartId") Long cartId) {
-        return cartService.findCart(cartId);
+    @GetMapping("{id}")
+    CartDto findCart(@PathVariable("id") Long id) {
+        return cartService.findCart(id);
     }
 }

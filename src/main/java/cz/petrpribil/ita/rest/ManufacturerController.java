@@ -9,20 +9,26 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("api/v1/manufacturers")
+@RequestMapping("api/v1/genres")
 @CrossOrigin("http://localhost:8088")
 @RequiredArgsConstructor
 public class ManufacturerController {
 
     private final ManufacturerService manufacturerService;
 
-    @GetMapping("{id}")
-    public ManufacturerDto findManufacturer(@PathVariable("id") Long id){
-        return manufacturerService.findManufacturer(id);
-    }
-
     @GetMapping
     public Collection<ManufacturerDto> findAll(){
         return manufacturerService.findAll();
     }
 }
+
+
+
+
+
+/*
+    @GetMapping("{id}")
+    public ManufacturerDto findManufacturer(@PathVariable("id") Long id){
+        return manufacturerService.findManufacturer(id);
+    }
+ */

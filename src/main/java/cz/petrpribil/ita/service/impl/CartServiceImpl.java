@@ -43,7 +43,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public CartDto addToCart(Long cartId, Long productId) {
         log.debug("Cart " + cartId + " is being updated");
         Cart cart = cartRepository.findById(cartId)

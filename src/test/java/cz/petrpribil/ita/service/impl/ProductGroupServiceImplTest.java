@@ -32,25 +32,6 @@ public class ProductGroupServiceImplTest implements WithAssertions {
 
 
     @Test
-    void testFindProductGroup() {
-        ProductGroup testProductGroup = getTestProductGroup();
-        ProductGroupDto expectedResult = getTestProductGroupDto();
-
-        when(mockProductGroupRepository.findById(100L))
-                .thenReturn(Optional.of(testProductGroup));
-        when(mockProductGroupMapper.toDto(testProductGroup))
-                .thenReturn((expectedResult));
-
-        ProductGroupDto result = productGroupServiceImpl.findProductGroup(100L);
-
-        assertThat(result).isEqualTo(expectedResult);
-
-        verify(mockProductGroupRepository).findById(100L);
-        verify(mockProductGroupMapper).toDto(testProductGroup);
-
-    }
-
-    @Test
     void testFindAll(){
         ProductGroup testProductGroup1 = getTestProductGroup();
         ProductGroup testProductGroup2 = getTestProductGroup();
@@ -73,3 +54,26 @@ public class ProductGroupServiceImplTest implements WithAssertions {
 
     }
 }
+
+
+/*
+
+    @Test
+    void testFindProductGroup() {
+        ProductGroup testProductGroup = getTestProductGroup();
+        ProductGroupDto expectedResult = getTestProductGroupDto();
+
+        when(mockProductGroupRepository.findById(100L))
+                .thenReturn(Optional.of(testProductGroup));
+        when(mockProductGroupMapper.toDto(testProductGroup))
+                .thenReturn((expectedResult));
+
+        ProductGroupDto result = productGroupServiceImpl.findProductGroup(100L);
+
+        assertThat(result).isEqualTo(expectedResult);
+
+        verify(mockProductGroupRepository).findById(100L);
+        verify(mockProductGroupMapper).toDto(testProductGroup);
+
+    }
+ */
