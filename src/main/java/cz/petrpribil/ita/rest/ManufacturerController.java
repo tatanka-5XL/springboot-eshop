@@ -1,6 +1,5 @@
 package cz.petrpribil.ita.rest;
 
-import cz.petrpribil.ita.domain.Manufacturer;
 import cz.petrpribil.ita.model.ManufacturerDto;
 import cz.petrpribil.ita.service.ManufacturerService;
 import lombok.RequiredArgsConstructor;
