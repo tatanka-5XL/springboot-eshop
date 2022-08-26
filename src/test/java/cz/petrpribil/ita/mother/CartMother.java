@@ -15,6 +15,6 @@ public class CartMother {
 
     public static CartDto getTestCartDto(){
         return new CartDto()
-                .setCartId(400L);
+                .setId(400L);
     }
 }

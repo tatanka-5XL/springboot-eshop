@@ -15,6 +15,6 @@ public class OrderMother {
 
     public static OrderDto getTestOrderDto(){
         return new OrderDto()
-                .setOrderId(300L);
+                .setId(300L);
     }
 }

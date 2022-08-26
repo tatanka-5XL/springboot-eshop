@@ -17,7 +17,7 @@ public class OrderMapperTest implements WithAssertions {
         Order testOrder = getTestOrder();
         OrderDto resultToDomain = mockOrderMapper.toDto(testOrder);
 
-        assertThat(resultToDomain.getOrderId()).isEqualTo(testOrder.getId());
+        assertThat(resultToDomain.getId()).isEqualTo(testOrder.getId());
     }
 
 }
