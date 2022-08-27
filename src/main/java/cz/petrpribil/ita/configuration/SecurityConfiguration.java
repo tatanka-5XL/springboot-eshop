@@ -1,5 +1,6 @@
 package cz.petrpribil.ita.configuration;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -17,8 +18,10 @@ import java.util.List;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
+@RequiredArgsConstructor
 public class SecurityConfiguration {
-//    private final SecurityConfigurationProperties securityConfigurationProperties;
+
+    private final SecurityConfigurationProperties securityConfigurationProperties;
 
     @Bean
     public InMemoryUserDetailsManager userDetailsService() {
@@ -54,8 +57,8 @@ public class SecurityConfiguration {
     public CorsConfigurationSource corsConfigurationSource() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration corsConfiguration = new CorsConfiguration()
-                .setAllowedOriginPatterns(List.of("http://localhost:8088"));
-        corsConfiguration.setAllowedMethods(List.of("GET", "PUT", "POST", "DELETE"));
+                .setAllowedOriginPatterns(List.of(securityConfigurationProperties.getFrontendUrl()));
+        corsConfiguration.setAllowedMethods(securityConfigurationProperties.getAllowedMethods());
         corsConfiguration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         source.registerCorsConfiguration("/**", corsConfiguration);
         return source;
