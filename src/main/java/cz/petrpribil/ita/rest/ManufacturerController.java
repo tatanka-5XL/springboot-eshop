@@ -9,7 +9,6 @@ import java.util.Collection;
 
 @RestController
 @RequestMapping("api/v1/authors")
-@CrossOrigin("http://localhost:8088")
 @RequiredArgsConstructor
 public class ManufacturerController {
 
