@@ -4,7 +4,11 @@ import cz.petrpribil.ita.domain.Cart;
 import cz.petrpribil.ita.domain.Order;
 import cz.petrpribil.ita.domain.Product;
 import cz.petrpribil.ita.exception.CartNotFoundException;
+import cz.petrpribil.ita.exception.OrderNotFoundException;
+import cz.petrpribil.ita.exception.ProductNotFoundException;
 import cz.petrpribil.ita.mapper.OrderMapper;
+import cz.petrpribil.ita.model.CartDto;
+import cz.petrpribil.ita.model.ManufacturerDto;
 import cz.petrpribil.ita.model.OrderDto;
 import cz.petrpribil.ita.repository.CartRepository;
 import cz.petrpribil.ita.repository.OrderRepository;
@@ -14,7 +18,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -41,6 +47,26 @@ public class OrderServiceImpl implements OrderService {
         cartRepository.delete(cart);
         OrderDto savedOrder = orderMapper.toDto(order);
         log.debug("Created order" + savedOrder);
+        return savedOrder;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Collection<OrderDto> findAll() {
+        return orderRepository.findAll().stream()
+                .map(orderMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public OrderDto updateOrderStatus(Long id, Order.OrderStatus orderStatus) {
+        log.debug("Status or order Nr. " + id + " is being updated");
+        Order order = orderRepository.findById(id)
+                .orElseThrow(()-> new OrderNotFoundException(id));
+        order.setOrderStatus(orderStatus);
+        OrderDto savedOrder = orderMapper.toDto(order);
+        log.debug("Status of order " + id + " was updated to " + order.getOrderStatus());
         return savedOrder;
     }
 
