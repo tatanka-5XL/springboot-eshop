@@ -56,7 +56,7 @@ create table r_order_product
     id_order   int8 not null,
     id_product int8 not null
 );
-create sequence hibernate_sequence start 1000 increment 1;
+create sequence hibernate_sequence start with 1000 increment by 1;
 alter table if exists product
     add constraint fk_product_manufacturer foreign key (id_manufacturer) references manufacturer;
 alter table if exists product

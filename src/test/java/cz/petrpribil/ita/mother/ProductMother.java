@@ -33,7 +33,7 @@ public class  ProductMother {
                 .setDescription("Popis_lahve")
                 .setImage("url_lahve")
                 .setPrice(100L)
-                .setManufacturerId()
+                .setManufacturerId(3L)
                 .setStock(5L);
     }
 
