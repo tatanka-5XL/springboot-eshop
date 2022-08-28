@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -50,7 +51,7 @@ class ProductControllerTest extends AbstractControllerTest implements WithAssert
     }
 
     @Test
-    public void testProductNotFound() throws Exception {
+    void testProductNotFound() throws Exception {
 
         when(mockProductService.findProduct(2L))
                 .thenThrow(new ProductNotFoundException(2L));
@@ -58,6 +59,18 @@ class ProductControllerTest extends AbstractControllerTest implements WithAssert
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/products/2"))
                 .andExpect(status().isNotFound())
                 .andExpect(content().json(getJsonContent("/responses/findProduct_notFound.json")));
+    }
+
+    // toto uz je test zabezpecene funkcionality!!!
+    @Test
+    void deleteProduct() throws Exception {
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add(HttpHeaders.AUTHORIZATION,"Basic dXNlcjpwYXNzd29yZA==");
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/products/3")
+                .headers(httpHeaders))
+                .andExpect(status().isNoContent());
     }
 
     private String getJsonContent(String resource) throws IOException, URISyntaxException {
