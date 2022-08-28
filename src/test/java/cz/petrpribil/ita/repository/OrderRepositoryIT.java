@@ -27,7 +27,7 @@ class OrderRepositoryIT implements WithAssertions {
     @Test
     void testCreateAndRetrieveOrder(){
 
-        List<Product> testProducts = List.of(getTestProduct(), getTestProduct());
+        List<Product> testProducts = List.of(getTestProduct());
 
         Order testOrder = new Order()
                 .setProducts(testProducts);

@@ -3,6 +3,7 @@ package cz.petrpribil.ita.rest;
 import cz.petrpribil.ita.configuration.SecurityConfiguration;
 import cz.petrpribil.ita.configuration.SecurityConfigurationProperties;
 import cz.petrpribil.ita.domain.Product;
+import cz.petrpribil.ita.exception.ProductNotFoundException;
 import cz.petrpribil.ita.model.ProductDto;
 import cz.petrpribil.ita.service.ProductService;
 import org.assertj.core.api.WithAssertions;
@@ -14,8 +15,15 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Optional;
+
 import static cz.petrpribil.ita.mother.ProductMother.getTestProduct;
 import static cz.petrpribil.ita.mother.ProductMother.getTestProductDto;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -38,7 +46,21 @@ class ProductControllerTest extends AbstractControllerTest implements WithAssert
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/products/1"))
                 .andExpect(status().isOk())
-                .andReturn();
-//                .andExpect(content().json(""));
+                .andExpect(content().json(getJsonContent("/responses/findProduct.json")));
+    }
+
+    @Test
+    public void testProductNotFound() throws Exception {
+
+        when(mockProductService.findProduct(2L))
+                .thenThrow(new ProductNotFoundException(2L));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/products/2"))
+                .andExpect(status().isNotFound())
+                .andExpect(content().json(getJsonContent("/responses/findProduct_notFound.json")));
+    }
+
+    private String getJsonContent(String resource) throws IOException, URISyntaxException {
+        return Files.readString(Paths.get(getClass().getResource(resource).toURI()));
     }
 }

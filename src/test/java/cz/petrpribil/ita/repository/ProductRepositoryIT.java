@@ -25,6 +25,7 @@ class ProductRepositoryIT implements WithAssertions {
     void testCreateAndRetrieveProduct(){
 
         Product testProduct = getTestProduct();
+        testProduct.setId(null);
 
         testEntityManager.persistAndFlush(testProduct);
         testEntityManager.detach(testProduct);
