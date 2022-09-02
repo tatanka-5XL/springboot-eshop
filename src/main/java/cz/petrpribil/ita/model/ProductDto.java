@@ -32,4 +32,5 @@ public class ProductDto {
     private ManufacturerDto manufacturer;
     @JsonProperty("genre")
     private ProductGroupDto productGroup;
+    private boolean hasPreview;
 }

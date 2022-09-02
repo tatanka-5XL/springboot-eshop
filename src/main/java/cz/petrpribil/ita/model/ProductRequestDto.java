@@ -2,18 +2,14 @@ package cz.petrpribil.ita.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import cz.petrpribil.ita.validation.StartsWithUppercase;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductRequestDto {
