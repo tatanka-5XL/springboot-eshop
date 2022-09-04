@@ -20,12 +20,9 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Optional;
 
-import static cz.petrpribil.ita.mother.ProductMother.getTestProduct;
 import static cz.petrpribil.ita.mother.ProductMother.getTestProductDto;
-import static org.mockito.Mockito.verifyNoInteractions;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -59,6 +56,8 @@ class ProductControllerTest extends AbstractControllerTest implements WithAssert
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/products/2"))
                 .andExpect(status().isNotFound())
                 .andExpect(content().json(getJsonContent("/responses/findProduct_notFound.json")));
+
+        verify(mockProductService).findProduct(2L);
     }
 
     // toto uz je test zabezpecene funkcionality!!!
@@ -71,6 +70,8 @@ class ProductControllerTest extends AbstractControllerTest implements WithAssert
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/products/3")
                 .headers(httpHeaders))
                 .andExpect(status().isNoContent());
+
+        verify(mockProductService).deleteProduct(3L);
     }
 
     private String getJsonContent(String resource) throws IOException, URISyntaxException {
