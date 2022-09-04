@@ -18,6 +18,7 @@ class ProductGroupControllerIT implements WithAssertions {
     private TestRestTemplate testRestTemplate;
 
     @Test
+    // bohuzel funguje pouze array [], ne List
     void findAll(){
         ResponseEntity<ProductGroupDto[]> response = testRestTemplate.getForEntity("/api/v1/genres", ProductGroupDto[].class);
 
