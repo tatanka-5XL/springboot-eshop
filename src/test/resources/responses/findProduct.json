@@ -1,0 +1,10 @@
+{
+  "name": "Lahev",
+  "description": "Popis_lahve",
+  "image": "url_lahve",
+  "price": 100,
+  "stock": 5,
+  "id": 3,
+  "author": null,
+  "genre": null
+}

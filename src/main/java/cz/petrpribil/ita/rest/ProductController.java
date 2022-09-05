@@ -13,7 +13,7 @@ import java.util.Collection;
 
 @RestController
 @RequestMapping("api/v1/products")
-@CrossOrigin("http://localhost:8088")
+// @CrossOrigin("http://localhost:8088")  uz nemusim, mam to nastavene globalne v SecurityConfig
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;

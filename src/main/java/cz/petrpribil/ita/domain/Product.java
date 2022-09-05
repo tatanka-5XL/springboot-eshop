@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-public class Product extends AbstractEntity {
+public class Product {
     @Id
     @GeneratedValue
     private Long id;
@@ -28,5 +28,6 @@ public class Product extends AbstractEntity {
             name = "id_product_group"
     )
     private ProductGroup productGroup;
+    private String preview;
 
 }
