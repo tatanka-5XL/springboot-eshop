@@ -12,12 +12,10 @@ import java.util.Collection;
 @Slf4j
 public class CartRemovingJob {
 
-
     @Scheduled(cron = "${app.job.cart-removal}")
     public class CartRemovingJob {
 
         public void writeSomething() {
                 log.info("Jobisek");
-
     }
-}
+}  §

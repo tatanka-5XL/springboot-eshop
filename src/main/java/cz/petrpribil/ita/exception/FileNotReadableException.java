@@ -1,6 +1,6 @@
 package cz.petrpribil.ita.exception;
 
-import com.amazonaws.services.chime.model.ErrorCode;
+import cz.petrpribil.ita.enumeration.ErrorCode;
 import org.springframework.http.HttpStatus;
 
 public class FileNotReadableException extends ItaException {
