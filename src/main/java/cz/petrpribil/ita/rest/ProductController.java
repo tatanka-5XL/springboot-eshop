@@ -1,13 +1,17 @@
 package cz.petrpribil.ita.rest;
 
+import cz.petrpribil.ita.model.PreviewResponse;
 import cz.petrpribil.ita.model.ProductRequestDto;
 import cz.petrpribil.ita.model.ProductDto;
 import cz.petrpribil.ita.model.ProductSimpleDto;
 import cz.petrpribil.ita.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.Collection;
 
@@ -43,5 +47,18 @@ public class ProductController {
     public void deleteProduct(@PathVariable("id") Long id) {
         productService.deleteProduct(id);
     }
+
+    @PostMapping(value="{id}/preview", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public void addPreview(@PathVariable Long id, @RequestPart("file")MultipartFile file) {
+        productService.addPreview(id, file);
+    }
+
+    @GetMapping(value="{id}/preview", produces = MediaType.APPLICATION_PDF_VALUE)
+    public byte[] getPreview(@PathVariable("id") Long id, HttpServletResponse response) {
+        PreviewResponse previewResponse = productService.getPreview(id);
+        response.addHeader("Contet-Disposition", "attachement; filename=" + previewResponse.getFilename());
+        return previewResponse.getBytes();
+    }
+
 
 }

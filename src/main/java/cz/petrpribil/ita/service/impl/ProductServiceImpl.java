@@ -1,10 +1,18 @@
 package cz.petrpribil.ita.service.impl;
 
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.services.s3.model.S3ObjectInputStream;
+import com.amazonaws.util.IOUtils;
+import cz.petrpribil.ita.configuration.AmazonConfig;
 import cz.petrpribil.ita.domain.Product;
 import cz.petrpribil.ita.exception.ManufacturerNotFoundException;
 import cz.petrpribil.ita.exception.ProductGroupNotFoundException;
 import cz.petrpribil.ita.exception.ProductNotFoundException;
 import cz.petrpribil.ita.mapper.ProductMapper;
+import cz.petrpribil.ita.model.PreviewResponse;
 import cz.petrpribil.ita.model.ProductRequestDto;
 import cz.petrpribil.ita.model.ProductDto;
 import cz.petrpribil.ita.model.ProductSimpleDto;
@@ -16,7 +24,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
@@ -29,6 +40,9 @@ public class ProductServiceImpl implements ProductService {
     private final ProductMapper productMapper;
     private final ManufacturerRepository manufacturerRepository;
     private final ProductGroupRepository productGroupRepository;
+    private final AmazonS3 amazonS3;
+    private final AmazonConfig amazonConfig;
+
 
     @Override
     @Transactional(readOnly = true)
@@ -83,5 +97,47 @@ public class ProductServiceImpl implements ProductService {
     public void deleteProduct(Long id) {
         log.debug("Product " + id + " was deleted");
         productRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional
+    public void addPreview(Long id, MultipartFile file) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(()-> new ProductNotFoundException(id));
+
+        String filename = product.getId() + "_" + file.getOriginalFilename();
+
+        try{
+            amazonS3.putObject(amazonConfig.getBucketName(),
+                    filename,
+                    file.getInputStream(),
+                    new ObjectMetadata());
+
+        } catch (IOException e) {
+            throw new FileNotReadableException();
+        }
+
+        if (product.getPreview() != null) {
+            amazonS3.deleteObject(amazonConfig.getBucketName(), product.getPreview());
+        }
+
+        product.setPreview(filename);
+    }
+
+    @Override
+    public PreviewResponse getPreview(Long id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(()->new ProductNotFoundException(id));
+        String filename = product.getPreview();
+
+        try{
+            S3Object object = amazonS3.getObject(amazonConfig.getBucketName(), filename);
+            S3ObjectInputStream objectContent = object.getObjectContent();
+            return new PreviewResponse()
+                    .setFilename(filename)
+                    .setBytes(IOUtils.toByteArray(objectContent));
+        } catch (AmazonServiceException | IOException e) {
+            throw new FileNotReadableException();
+        }
     }
 }

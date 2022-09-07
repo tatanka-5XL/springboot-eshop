@@ -1,8 +1,10 @@
 package cz.petrpribil.ita.service;
 
+import cz.petrpribil.ita.model.PreviewResponse;
 import cz.petrpribil.ita.model.ProductRequestDto;
 import cz.petrpribil.ita.model.ProductDto;
 import cz.petrpribil.ita.model.ProductSimpleDto;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Collection;
 
@@ -41,4 +43,18 @@ public interface ProductService {
      * @param id
      */
     void deleteProduct(Long id);
+
+    /**
+     * To add user manual to the existing product
+     * @param id
+     * @param file
+     */
+    void addPreview(Long id, MultipartFile file);
+
+    /**
+     * To show user manual of an existing product
+     * @param id
+     * @return preview as {@link PreviewResponse}
+     */
+    PreviewResponse getPreview(Long id);
 }
