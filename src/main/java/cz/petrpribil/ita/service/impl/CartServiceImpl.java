@@ -11,12 +11,18 @@ import cz.petrpribil.ita.repository.ProductRepository;
 import cz.petrpribil.ita.service.CartService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Time;
 import java.time.Duration;
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 
@@ -67,5 +73,18 @@ public class CartServiceImpl implements CartService {
                 .map(cartMapper::toDto)
                 .orElseThrow(()-> new CartNotFoundException(cartId));
     }
+
+    @Override
+    public List<Cart> findCartsByModifiedAtBefore (LocalDateTime timestamp) {
+        List<Cart> oldCarts = cartRepository.findCartsByModifiedAtBefore(timestamp);
+        return oldCarts;
+    }
+
+//    @Override
+//    @Query("select c from Cart where c.createdAt <= :createdAt")
+//    public List<CartDto> findCartsCreatedBefore (@Param("createdAt") Date dateTime) {
+//        List<CartDto> carts = cartRepository.
+//    }
+
 }
 

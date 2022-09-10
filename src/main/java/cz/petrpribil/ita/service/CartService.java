@@ -1,9 +1,14 @@
 package cz.petrpribil.ita.service;
 
+import cz.petrpribil.ita.domain.Cart;
 import cz.petrpribil.ita.model.CartDto;
 
+import java.time.Duration;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 
 
 public interface CartService {
@@ -29,4 +34,11 @@ public interface CartService {
      * @return cart as a {@link CartDto}
      */
     CartDto findCart(Long cartId);
+
+    /**
+     * To find all carts older than certain time, stored in the database
+     * @param timestamp
+     * @return cart as a {@link List<CartDto>}
+     */
+    public List<Cart> findCartsByModifiedAtBefore (LocalDateTime timestamp);
 }
