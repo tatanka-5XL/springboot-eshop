@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
@@ -18,7 +17,7 @@ public class CartRemovingJob {
     private static CartService cartService;
 
     @Scheduled(cron = "${app.job.cart-removal.cron}")
-    public static void main (String[] args) {
+    public static void main () {
         log.debug("Removing unused carts...");
         LocalDateTime localDateTimeNow = LocalDateTime.now();
         LocalDateTime timeStamp = localDateTimeNow.minus(10, ChronoUnit.MINUTES);
