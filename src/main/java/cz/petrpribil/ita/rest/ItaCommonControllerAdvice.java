@@ -33,7 +33,7 @@ public class ItaCommonControllerAdvice extends ResponseEntityExceptionHandler {
                 ex,
                 new ExceptionDto(
                     ex.getMessage(),
-                    ex.getCode()
+                    ex.getErrorCode().getCode()
                 ),
                 new HttpHeaders(),
                 ex.getStatus(),

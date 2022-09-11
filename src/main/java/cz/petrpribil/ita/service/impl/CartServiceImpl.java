@@ -11,18 +11,10 @@ import cz.petrpribil.ita.repository.ProductRepository;
 import cz.petrpribil.ita.service.CartService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.sql.Time;
-import java.time.Duration;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 
@@ -56,9 +48,9 @@ public class CartServiceImpl implements CartService {
     public CartDto addToCart(Long cartId, Long productId) {
         log.debug("Cart " + cartId + " is being updated");
         Cart cart = cartRepository.findById(cartId)
-                .orElseThrow(()-> new CartNotFoundException(cartId));
+                .orElseThrow(() -> new CartNotFoundException(cartId));
         Product product = productRepository.findById(productId)
-                        .orElseThrow(()-> new ProductNotFoundException(productId));
+                .orElseThrow(() -> new ProductNotFoundException(productId));
         List<Product> products = cart.getProducts();
         products.add(product);
         cart.setProducts(products);
@@ -71,20 +63,18 @@ public class CartServiceImpl implements CartService {
     public CartDto findCart(Long cartId) {
         return cartRepository.findById(cartId)
                 .map(cartMapper::toDto)
-                .orElseThrow(()-> new CartNotFoundException(cartId));
+                .orElseThrow(() -> new CartNotFoundException(cartId));
     }
 
     @Override
-    public List<Cart> findCartsByModifiedAtBefore (LocalDateTime timestamp) {
-        List<Cart> oldCarts = cartRepository.findCartsByModifiedAtBefore(timestamp);
-        return oldCarts;
+    @Transactional
+    public void deleteCartsByModifiedAtBefore() {
+        LocalDateTime dateTimeNow = LocalDateTime.now();
+        LocalDateTime timeToRemoveBefore = dateTimeNow.minus(10, ChronoUnit.MINUTES);
+        List<Cart> unusedCarts = cartRepository.findCartsByModifiedAtBefore(timeToRemoveBefore);
+        cartRepository.deleteAllInBatch(unusedCarts);
     }
-
-//    @Override
-//    @Query("select c from Cart where c.createdAt <= :createdAt")
-//    public List<CartDto> findCartsCreatedBefore (@Param("createdAt") Date dateTime) {
-//        List<CartDto> carts = cartRepository.
-//    }
-
 }
+
+
 

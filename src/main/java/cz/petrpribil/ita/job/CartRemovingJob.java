@@ -1,26 +1,23 @@
 package cz.petrpribil.ita.job;
 
-import cz.petrpribil.ita.domain.Cart;
-import cz.petrpribil.ita.repository.CartRepository;
+import cz.petrpribil.ita.service.CartService;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-import java.util.List;
 
+@Data
 @Component
 @Slf4j
 public class CartRemovingJob {
 
-    private CartRepository cartRepository;
+    private static CartService cartService;
 
-    @Scheduled(cron="${app.job.cart-removal}")
-    public void removeUnusedCarts() {
-        LocalDateTime dateTimeNow = LocalDateTime.now();
-        LocalDateTime timeToRemoveBefore = dateTimeNow.minus(10, ChronoUnit.MINUTES);
-        List<Cart> oldCarts = cartRepository.findCartsByModifiedAtBefore(timeToRemoveBefore);
-        cartRepository.deleteAllInBatch(oldCarts);
+    @Scheduled(cron = "${app.job.cart-removal.cron}")
+    public static void main (String[] args) {
+        log.debug("Removing unused carts...");
+        cartService.deleteCartsByModifiedAtBefore();
+        log.debug("Unused carts removed");
     }
 }
 

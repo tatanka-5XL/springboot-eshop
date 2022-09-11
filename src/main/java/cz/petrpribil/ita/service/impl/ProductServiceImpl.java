@@ -8,6 +8,7 @@ import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.util.IOUtils;
 import cz.petrpribil.ita.configuration.AmazonConfig;
 import cz.petrpribil.ita.domain.Product;
+import cz.petrpribil.ita.exception.FileNotReadableException;
 import cz.petrpribil.ita.exception.ManufacturerNotFoundException;
 import cz.petrpribil.ita.exception.ProductGroupNotFoundException;
 import cz.petrpribil.ita.exception.ProductNotFoundException;

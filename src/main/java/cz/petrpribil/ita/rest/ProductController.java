@@ -48,12 +48,12 @@ public class ProductController {
         productService.deleteProduct(id);
     }
 
-    @PostMapping(value="{id}/preview", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "{id}/preview", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public void addPreview(@PathVariable Long id, @RequestPart("file")MultipartFile file) {
         productService.addPreview(id, file);
     }
 
-    @GetMapping(value="{id}/preview", produces = MediaType.APPLICATION_PDF_VALUE)
+    @GetMapping(value = "{id}/preview", produces = MediaType.APPLICATION_PDF_VALUE)
     public byte[] getPreview(@PathVariable("id") Long id, HttpServletResponse response) {
         PreviewResponse previewResponse = productService.getPreview(id);
         response.addHeader("Contet-Disposition", "attachement; filename=" + previewResponse.getFilename());

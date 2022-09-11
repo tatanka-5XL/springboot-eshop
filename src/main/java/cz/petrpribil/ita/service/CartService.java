@@ -36,9 +36,7 @@ public interface CartService {
     CartDto findCart(Long cartId);
 
     /**
-     * To find all carts older than certain time, stored in the database
-     * @param timestamp
-     * @return cart as a {@link List<CartDto>}
+     * To remove carts that haven't been converted or modified at than 10 minutes
      */
-    public List<Cart> findCartsByModifiedAtBefore (LocalDateTime timestamp);
+    public void deleteCartsByModifiedAtBefore();
 }

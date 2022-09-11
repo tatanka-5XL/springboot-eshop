@@ -12,7 +12,3 @@ public interface ManufacturerService {
      */
     Collection<ManufacturerDto> findAll();
 }
-
-
-
-//    ManufacturerDto findManufacturer(Long id);
