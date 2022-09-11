@@ -11,6 +11,7 @@ import cz.petrpribil.ita.repository.ProductRepository;
 import cz.petrpribil.ita.service.CartService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
@@ -68,11 +69,8 @@ public class CartServiceImpl implements CartService {
 
     @Override
     @Transactional
-    public void deleteCartsByModifiedAtBefore() {
-        LocalDateTime dateTimeNow = LocalDateTime.now();
-        LocalDateTime timeToRemoveBefore = dateTimeNow.minus(10, ChronoUnit.MINUTES);
-        List<Cart> unusedCarts = cartRepository.findCartsByModifiedAtBefore(timeToRemoveBefore);
-        cartRepository.deleteAllInBatch(unusedCarts);
+    public void deleteCartsByModifiedAtBefore(LocalDateTime timeStamp) {
+        cartRepository.deleteCartsByModifiedAtBefore(timeStamp);
     }
 }
 

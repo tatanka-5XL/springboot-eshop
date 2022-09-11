@@ -1,14 +1,7 @@
 package cz.petrpribil.ita.service;
 
-import cz.petrpribil.ita.domain.Cart;
 import cz.petrpribil.ita.model.CartDto;
-
-import java.time.Duration;
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
 
 
 public interface CartService {
@@ -38,5 +31,5 @@ public interface CartService {
     /**
      * To remove carts that haven't been converted or modified at than 10 minutes
      */
-    public void deleteCartsByModifiedAtBefore();
+    public void deleteCartsByModifiedAtBefore(LocalDateTime timeStamp);
 }
