@@ -6,8 +6,9 @@ import java.util.Collection;
 
 public interface ProductGroupService {
 
+    /**
+     * To show all product groups stored in the database
+     * @return collection of product groups as {@link Collection<ProductGroupDto>}
+     */
     Collection<ProductGroupDto> findAll();
 }
-
-
-//    ProductGroupDto findProductGroup(Long id);
