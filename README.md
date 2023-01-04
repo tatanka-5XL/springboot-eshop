@@ -2,7 +2,7 @@
 
 ## About
 
-Simple e-shop application, output of the 10-weeks intensive Spring Boot course at IT-Absolvent
+Simple e-shop application, output of the 10-weeks intensive Spring Boot course "IT-Absolvent" at SmartBrains s.r.o.
 
 ## Remarks and Notes
 
